@@ -1,0 +1,34 @@
+[
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/deepocean/deepocean.webp",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/deepocean/deepocean.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dracula/dracula.webp",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dracula/dracula.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/materialthemedraker/materialthemedraker.webp",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/materialthemedraker/materialthemedraker.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/monokia pro/monokiapro.webp",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/monokia pro/monokiapro.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.webp",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/onedrakpro/onedrakpro.webp",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/onedrakpro/onedrakpro.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/orginal/orginaltheme.webp",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/orginal/orginal.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sorazior drak/soraziordrak.webp",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sorazior drak/soraziordrak.ghost"
+    }
+]
