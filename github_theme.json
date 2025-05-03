@@ -1,5 +1,37 @@
 [
     {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/AsDrak/AsDrak.png",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/AsDrak/AsDrak.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/CyberEclipse/CyberEclipse.png",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/CyberEclipse/CyberEclipse.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Essex/Essex.png",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Essex/Essex.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Mai_dark/Mai_dark.png",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Mai_dark/Mai_dark.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Maika/Maika.png",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Maika/Maika.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker/MatrixHacker.png",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker/MatrixHacker.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MidnightGarden/MidnightGarden.png",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MidnightGarden/MidnightGarden.ghost"
+    },
+    {
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/ObsidianFalme/ObsidianFalme.png",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/ObsidianFalme/ObsidianFalme.ghost"
+    },
+    {
         "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/deepocean/deepocean.webp",
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/deepocean/deepocean.ghost"
     },
