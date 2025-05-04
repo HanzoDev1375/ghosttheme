@@ -2,7 +2,7 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: ["main"]  # هنگام پوش به شاخه main اجرا شود
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -31,8 +31,10 @@ jobs:
         run: |
           mkdir output
           cp themecreatemodern.html output/
-          
-
+          # اگر نیاز به کپی سایر فایل‌ها مانند CSS یا JS داری، اینجا اضافه کن
+          # cp style.css output/
+          # cp script.js output/
+      
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
