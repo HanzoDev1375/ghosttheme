@@ -1,943 +1,1069 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سازنده تم حرفه ای - نسخه پیشرفته</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #002635;
-            --secondary: #001E2A;
-            --accent: #FACE8E;
-            --text: #f5f5f5;
-        }
-        
-        body {
-            font-family: 'Vazir', 'Segoe UI', Tahoma, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text);
-            background: linear-gradient(-45deg, #002635, #001E2A, #00222F, #001E2A);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            min-height: 100vh;
-        }
-        
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            background: rgba(0, 20, 30, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 30px auto;
-        }
-        
-        h1 {
-            text-align: center;
-            color: var(--accent);
-            margin-bottom: 30px;
-            font-size: 2rem;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .tab.active {
-            border-bottom: 3px solid var(--accent);
-            color: var(--accent);
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .color-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .color-group {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .color-label {
-            width: 120px;
-            font-weight: bold;
-            color: var(--accent);
-        }
-        
-        .color-input {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .color-preview {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .color-preview:hover {
-            transform: scale(1.05);
-        }
-        
-        input[type="color"] {
-            opacity: 0;
-            position: absolute;
-            pointer-events: none;
-        }
-        
-        .color-value {
-            font-family: monospace;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 5px 10px;
-            border-radius: 5px;
-            min-width: 80px;
-            text-align: center;
-        }
-        
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        #generateBtn {
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
-            color: white;
-        }
-        
-        #copyBtn {
-            background: linear-gradient(135deg, #2196F3, #0D47A1);
-            color: white;
-        }
-        
-        #resetBtn {
-            background: linear-gradient(135deg, #f44336, #C62828);
-            color: white;
-        }
-        
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        button:active {
-            transform: translateY(1px);
-        }
-        
-        .preview-container {
-            margin: 30px 0;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .preview {
-            display: flex;
-            height: 300px;
-        }
-        
-        .preview-sidebar {
-            width: 20%;
-            background: var(--secondary);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .preview-main {
-            width: 80%;
-            background: var(--primary);
-            padding: 15px;
-            position: relative;
-        }
-        
-        .preview-line {
-            position: absolute;
-            left: 0;
-            width: 40px;
-            background: var(--primary);
-            height: 100%;
-            padding: 15px 10px;
-            color: white;
-            font-family: monospace;
-            opacity: 0.7;
-        }
-        
-        .preview-code {
-            margin-left: 40px;
-            padding: 15px;
-            height: 100%;
-            font-family: 'Fira Code', monospace;
-            white-space: pre;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        
-        .current-line {
-            background: rgba(0, 30, 45, 0.7);
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-        
-        .line-divider-preview {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 15px 0;
-        }
-        
-        .output-container {
-            margin-top: 30px;
-        }
-        
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 15px;
-            border-radius: 10px;
-            border: none;
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            font-family: 'Fira Code', monospace;
-            resize: none;
-            margin-top: 15px;
-        }
-        
-        .output-label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--accent);
-            font-weight: bold;
-        }
-        
-        .theme-properties {
-            margin-top: 30px;
-            max-height: 400px;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-        }
-        
-        .property-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
-        
-        .property-color {
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            margin-left: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-        }
-        
-        .property-name {
-            flex: 1;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
-        
-        .property-value {
-            font-family: monospace;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 3px 8px;
-            border-radius: 3px;
-            margin-left: 10px;
-            min-width: 80px;
-            text-align: center;
-        }
-        
-        .sample-text {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            line-height: 1.8;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-                padding: 20px;
-            }
-            
-            .color-group {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .color-input {
-                width: 100%;
-            }
-            
-            .buttons {
-                flex-direction: column;
-            }
-            
-            button {
-                width: 100%;
-            }
-            
-            .tabs {
-                flex-wrap: wrap;
-            }
-        }
+      :root {
+      --primary: #002635;
+      --secondary: #001E2A;
+      --accent: #FACE8E;
+      --text: #f5f5f5;
+      }
+      body {
+      font-family: 'Vazir', 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--text);
+      background: linear-gradient(-45deg, #002635, #001E2A, #00222F, #001E2A);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      }
+      @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+      }
+      .container {
+      width: 90%;
+      max-width: 1200px;
+      background: rgba(0, 20, 30, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 30px auto;
+      }
+      h1 {
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 30px;
+      font-size: 2rem;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+      .tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+      }
+      .tab.active {
+      border-bottom: 3px solid var(--accent);
+      color: var(--accent);
+      }
+      .tab-content {
+      display: none;
+      }
+      .tab-content.active {
+      display: block;
+      }
+      .image-upload-container {
+      margin-bottom: 30px;
+      text-align: center;
+      }
+      .upload-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      margin-bottom: 15px;
+      }
+      .upload-label:hover {
+      background: rgba(0, 0, 0, 0.4);
+      border-color: var(--accent);
+      }
+      .image-preview {
+      max-width: 100%;
+      max-height: 300px;
+      margin: 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      display: none;
+      }
+      .image-preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+      }
+      .extracted-colors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 15px;
+      }
+      .color-swatch {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s;
+      }
+      .color-swatch:hover {
+      transform: scale(1.1);
+      }
+      .color-swatch.selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(250, 206, 142, 0.3);
+      }
+      .color-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-bottom: 30px;
+      }
+      .color-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      }
+      .color-label {
+      width: 120px;
+      font-weight: bold;
+      color: var(--accent);
+      }
+      .color-input {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      }
+      .color-preview {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: transform 0.3s;
+      }
+      .color-preview:hover {
+      transform: scale(1.05);
+      }
+      input[type="color"] {
+      opacity: 0;
+      position: absolute;
+      pointer-events: none;
+      }
+      .color-value {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 5px 10px;
+      border-radius: 5px;
+      min-width: 80px;
+      text-align: center;
+      }
+      .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+      }
+      button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      }
+      #generateBtn {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      color: white;
+      }
+      #copyBtn {
+      background: linear-gradient(135deg, #2196F3, #0D47A1);
+      color: white;
+      }
+      #resetBtn {
+      background: linear-gradient(135deg, #f44336, #C62828);
+      color: white;
+      }
+      button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      button:active {
+      transform: translateY(1px);
+      }
+      .preview-container {
+      margin: 30px 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+      .preview {
+      display: flex;
+      height: 300px;
+      }
+      .preview-sidebar {
+      width: 20%;
+      background: var(--secondary);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      }
+      .preview-main {
+      width: 80%;
+      background: var(--primary);
+      padding: 15px;
+      position: relative;
+      }
+      .preview-line {
+      position: absolute;
+      left: 0;
+      width: 40px;
+      background: var(--primary);
+      height: 100%;
+      padding: 15px 10px;
+      color: white;
+      font-family: monospace;
+      opacity: 0.7;
+      }
+      .preview-code {
+      margin-left: 40px;
+      padding: 15px;
+      height: 100%;
+      font-family: 'Fira Code', monospace;
+      white-space: pre;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      }
+      .current-line {
+      background: rgba(0, 30, 45, 0.7);
+      padding: 2px 5px;
+      border-radius: 3px;
+      }
+      .line-divider-preview {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 15px 0;
+      }
+      .output-container {
+      margin-top: 30px;
+      }
+      textarea {
+      width: 100%;
+      height: 200px;
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      font-family: 'Fira Code', monospace;
+      resize: none;
+      margin-top: 15px;
+      }
+      .output-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-weight: bold;
+      }
+      .theme-properties {
+      margin-top: 30px;
+      max-height: 400px;
+      overflow-y: auto;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 15px;
+      }
+      .property-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      }
+      .property-color {
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      margin-left: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      }
+      .property-name {
+      flex: 1;
+      font-family: monospace;
+      font-size: 0.9rem;
+      }
+      .property-value {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-left: 10px;
+      min-width: 80px;
+      text-align: center;
+      }
+      .sample-text {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      line-height: 1.8;
+      }
+      @media (max-width: 768px) {
+      .container {
+      width: 95%;
+      padding: 20px;
+      }
+      .color-group {
+      flex-direction: column;
+      align-items: flex-start;
+      }
+      .color-input {
+      width: 100%;
+      }
+      .buttons {
+      flex-direction: column;
+      }
+      button {
+      width: 100%;
+      }
+      .tabs {
+      flex-wrap: wrap;
+      }
+      }
     </style>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>🎨 سازنده تم حرفه ای - نسخه پیشرفته</h1>
-        
-        <div class="tabs">
-            <div class="tab active" data-tab="basic">تنظیمات پایه</div>
-            <div class="tab" data-tab="advanced">تنظیمات پیشرفته</div>
-            <div class="tab" data-tab="preview">پیش نمایش</div>
-            <div class="tab" data-tab="output">خروجی</div>
+      <h1>🎨 سازنده تم حرفه ای - نسخه پیشرفته</h1>
+      <div class="tabs">
+        <div class="tab active" data-tab="basic">
+          تنظیمات پایه
         </div>
-        
-        <div class="tab-content active" id="basic-tab">
-            <div class="color-controls">
-                <div class="color-group">
-                    <span class="color-label">رنگ اصلی:</span>
-                    <div class="color-input">
-                        <div class="color-preview" id="primaryPreview" style="background: #002635;"></div>
-                        <span class="color-value" id="primaryValue">#002635</span>
-                        <input type="color" id="primaryColor" value="#002635">
-                    </div>
-                </div>
-                
-                <div class="color-group">
-                    <span class="color-label">رنگ ثانویه:</span>
-                    <div class="color-input">
-                        <div class="color-preview" id="secondaryPreview" style="background: #001E2A;"></div>
-                        <span class="color-value" id="secondaryValue">#001E2A</span>
-                        <input type="color" id="secondaryColor" value="#001E2A">
-                    </div>
-                </div>
-                
-                <div class="color-group">
-                    <span class="color-label">رنگ متن:</span>
-                    <div class="color-input">
-                        <div class="color-preview" id="accentPreview" style="background: #FACE8E;"></div>
-                        <span class="color-value" id="accentValue">#FACE8E</span>
-                        <input type="color" id="accentColor" value="#FACE8E">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="sample-text">
-                <h3>نمونه متن برای تست رنگ‌ها:</h3>
-                <p style="color: var(--text_normal)">این یک متن نمونه با رنگ پایه است.</p>
-                <p style="color: var(--comment)">این یک کامنت نمونه است.</p>
-                <p style="color: var(--keyword)">این یک کلمه کلیدی نمونه است.</p>
-                <p style="color: var(--javastring)">این یک رشته نمونه در جاوا است.</p>
-            </div>
-            
-            <div class="buttons">
-                <button id="generateBtn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9 9 9 0 0 1 9 9z"></path>
-                        <path d="M12 3v3"></path>
-                        <path d="M12 18v3"></path>
-                        <path d="M3 12h3"></path>
-                        <path d="M18 12h3"></path>
-                    </svg>
-                    تولید تم
-                </button>
-                <button id="resetBtn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 1.17-9.12M21.5 22v-6h-6"></path>
-                    </svg>
-                    بازنشانی
-                </button>
-            </div>
+        <div class="tab" data-tab="advanced">
+          تنظیمات پیشرفته
         </div>
-        
-        <div class="tab-content" id="advanced-tab">
-            <h3>تنظیمات پیشرفته رنگ‌ها</h3>
-            <p>در این بخش می‌توانید هر یک از رنگ‌های تم را به صورت جداگانه ویرایش کنید.</p>
-            
-            <div class="theme-properties" id="themeProperties">
-                <!-- Properties will be generated here -->
-            </div>
-            
-            <div class="buttons">
-                <button id="saveAdvancedBtn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                        <polyline points="7 3 7 8 15 8"></polyline>
-                    </svg>
-                    ذخیره تغییرات
-                </button>
-            </div>
+        <div class="tab" data-tab="preview">
+          پیش نمایش
         </div>
-        
-        <div class="tab-content" id="preview-tab">
-            <h3>پیش نمایش تم</h3>
-            <p>نمایی از تم ساخته شده در محیط یک ویرایشگر کد:</p>
-            
-            <div class="preview-container">
-                <div class="preview">
-                    <div class="preview-sidebar">
-                        <div style="color: var(--toolbartextcolor)">
-                            منو
-                        </div>
-                        <div style="color: var(--toolbartextcolor); margin-top: 10px;">
-                            آیتم ۱
-                        </div>
-                        <div style="color: var(--toolbartextcolor)">
-                            آیتم ۲
-                        </div>
-                    </div>
-                    <div class="preview-main">
-                        <div class="preview-line">
-                            1 
-                            <br>
-                             2 
-                            <br>
-                             3 
-                            <br>
-                             4 
-                            <br>
-                             5 
-                            <br>
-                             6
-                        </div>
-                        <div class="preview-code">
-                            <span style="color: var(--comment)">// این یک کامنت نمونه است</span>
-                            <span class="current-line" style="color: var(--text_normal)">function <span style="color: var(--javafun)">example</span>(<span style="color: var(--javaparament)">x</span>) {</span>
-                            <span style="color: var(--breaklevel1)">    </span><span style="color: var(--keyword)">if</span> (<span style="color: var(--javaparament)">x</span> <span style="color: var(--operator)">&gt;</span> <span style="color: var(--javanumber)">10</span>) <span style="color: var(--breaklevel2)">{</span>
-                            <span style="color: var(--breaklevel3)">        </span><span style="color: var(--keyword)">return</span> <span style="color: var(--javastring)">"متن نمونه"</span><span style="color: var(--breaklevel4)">;</span>
-                            <span style="color: var(--breaklevel5)">    </span><span style="color: var(--breaklevel6)">}</span>
-                            <span style="color: var(--text_normal)"><span style="color: var(--breaklevel7)">}</span></span>
-                            <div class="line-divider-preview"></div>
-                            <span style="color: var(--attribute_name)">@Override</span>
-                            <span style="color: var(--text_normal)"><span style="color: var(--keyword)">public</span> <span style="color: var(--javatype)">void</span> <span style="color: var(--javafun)">onCreate</span>() {</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="sample-text">
-                <h3>نمونه متن‌های بیشتر:</h3>
-                <p style="color: var(--text_normal)">متن معمولی: این یک متن نمونه است</p>
-                <p style="color: var(--javastring)">رشته جاوا: "این یک رشته است"</p>
-                <p style="color: var(--javanumber)">عدد: 12345</p>
-                <p style="color: var(--keyword)">کلمه کلیدی: if, else, return</p>
-                <p style="color: var(--operator)">عملگر: + - * / > <</p>
-                <p style="color: var(--comment)">کامنت: // این یک کامنت است</p>
-            </div>
+        <div class="tab" data-tab="output">
+          خروجی
         </div>
-        
-        <div class="tab-content" id="output-tab">
-            <h3>خروجی JSON تم</h3>
-            <p>می‌توانید خروجی JSON تم را کپی کرده و در برنامه خود استفاده کنید:</p>
-            
-            <div class="output-container">
-                <textarea id="output" readonly></textarea>
-            </div>
-            
-            <div class="buttons">
-                <button id="copyBtn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                    کپی خروجی
-                </button>
-            </div>
+      </div>
+      <div class="tab-content active" id="basic-tab">
+        <div class="image-upload-container">
+          <label for="imageUpload" class="upload-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+              <line x1="16" y1="5" x2="22" y2="5"></line>
+              <line x1="19" y1="2" x2="19" y2="8"></line>
+              <circle cx="9" cy="9" r="2"></circle>
+              <path d="M21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+            </svg>
+            آپلود تصویر برای استخراج رنگ <input type="file" id="imageUpload" accept="image/*" style="display: none;"> 
+          </label>
+          <div class="image-preview" id="imagePreview"></div>
+          <div class="extracted-colors" id="extractedColors"></div>
+          <!-- از extratedColors به extractedColors تغییر کرد -->
         </div>
+        <div class="color-controls">
+          <div class="color-group">
+            <span class="color-label">رنگ اصلی:</span>
+            <div class="color-input">
+              <div class="color-preview" id="primaryPreview" style="background: #002635;"></div>
+              <span class="color-value" id="primaryValue">#002635</span> <input type="color" id="primaryColor" value="#002635">
+            </div>
+          </div>
+          <div class="color-group">
+            <span class="color-label">رنگ ثانویه:</span>
+            <div class="color-input">
+              <div class="color-preview" id="secondaryPreview" style="background: #001E2A;"></div>
+              <span class="color-value" id="secondaryValue">#001E2A</span> <input type="color" id="secondaryColor" value="#001E2A">
+            </div>
+          </div>
+          <div class="color-group">
+            <span class="color-label">رنگ متن:</span>
+            <div class="color-input">
+              <div class="color-preview" id="accentPreview" style="background: #FACE8E;"></div>
+              <span class="color-value" id="accentValue">#FACE8E</span> <input type="color" id="accentColor" value="#FACE8E">
+            </div>
+          </div>
+        </div>
+        <div class="sample-text">
+          <h3>نمونه متن برای تست رنگ‌ها:</h3>
+          <p style="color: var(--text_normal)">این یک متن نمونه با رنگ پایه است.</p>
+          <p style="color: var(--comment)">این یک کامنت نمونه است.</p>
+          <p style="color: var(--keyword)">این یک کلمه کلیدی نمونه است.</p>
+          <p style="color: var(--javastring)">این یک رشته نمونه در جاوا است.</p>
+        </div>
+        <div class="buttons">
+          <button id="generateBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9 9 9 0 0 1 9 9z"></path>
+              <path d="M12 3v3"></path>
+              <path d="M12 18v3"></path>
+              <path d="M3 12h3"></path>
+              <path d="M18 12h3"></path>
+            </svg>
+            تولید تم
+          </button>
+          <button id="resetBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 1.17-9.12M21.5 22v-6h-6"></path>
+            </svg>
+            بازنشانی
+          </button>
+        </div>
+      </div>
+      <div class="tab-content" id="advanced-tab">
+        <h3>تنظیمات پیشرفته رنگ‌ها</h3>
+        <p>در این بخش می‌توانید هر یک از رنگ‌های تم را به صورت جداگانه ویرایش کنید.</p>
+        <div class="theme-properties" id="themeProperties">
+          <!-- Properties will be generated here -->
+        </div>
+        <div class="buttons">
+          <button id="saveAdvancedBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            ذخیره تغییرات
+          </button>
+        </div>
+      </div>
+      <div class="tab-content" id="preview-tab">
+        <h3>پیش نمایش تم</h3>
+        <p>نمایی از تم ساخته شده در محیط یک ویرایشگر کد:</p>
+        <div class="preview-container">
+          <div class="preview">
+            <div class="preview-sidebar">
+              <div style="color: var(--toolbartextcolor)">
+                منو
+              </div>
+              <div style="color: var(--toolbartextcolor); margin-top: 10px;">
+                آیتم ۱
+              </div>
+              <div style="color: var(--toolbartextcolor)">
+                آیتم ۲
+              </div>
+            </div>
+            <div class="preview-main">
+              <div class="preview-line">
+                1 
+                <br>
+                2 
+                <br>
+                3 
+                <br>
+                4 
+                <br>
+                5 
+                <br>
+                6
+              </div>
+              <div class="preview-code">
+                <span style="color: var(--comment)">// این یک کامنت نمونه است</span> <span class="current-line" style="color: var(--text_normal)">function <span style="color: var(--javafun)">example</span>(<span style="color: var(--javaparament)">x</span>) {</span> <span style="color: var(--breaklevel1)"> </span><span style="color: var(--keyword)">if</span> (<span style="color: var(--javaparament)">x</span> <span style="color: var(--operator)">&gt;</span> <span style="color: var(--javanumber)">10</span>) <span style="color: var(--breaklevel2)">{</span> <span style="color: var(--breaklevel3)"> </span><span style="color: var(--keyword)">return</span> <span style="color: var(--javastring)">"متن نمونه"</span><span style="color: var(--breaklevel4)">;</span> <span style="color: var(--breaklevel5)"> </span><span style="color: var(--breaklevel6)">}</span> <span style="color: var(--text_normal)"><span style="color: var(--breaklevel7)">}</span></span>
+                <div class="line-divider-preview"></div>
+                <span style="color: var(--attribute_name)">@Override</span> <span style="color: var(--text_normal)"><span style="color: var(--keyword)">public</span> <span style="color: var(--javatype)">void</span> <span style="color: var(--javafun)">onCreate</span>() {</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sample-text">
+          <h3>نمونه متن‌های بیشتر:</h3>
+          <p style="color: var(--text_normal)">متن معمولی: این یک متن نمونه است</p>
+          <p style="color: var(--javastring)">رشته جاوا: "این یک رشته است"</p>
+          <p style="color: var(--javanumber)">عدد: 12345</p>
+          <p style="color: var(--keyword)">کلمه کلیدی: if, else, return</p>
+          <p style="color: var(--operator)">عملگر: + - * / &gt; &lt;</p>
+          <p style="color: var(--comment)">کامنت: // این یک کامنت است</p>
+        </div>
+      </div>
+      <div class="tab-content" id="output-tab">
+        <h3>خروجی JSON تم</h3>
+        <p>می‌توانید خروجی JSON تم را کپی کرده و در برنامه خود استفاده کنید:</p>
+        <div class="output-container">
+          <textarea id="output" readonly></textarea>
+        </div>
+        <div class="buttons">
+          <button id="copyBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            کپی خروجی
+          </button>
+        </div>
+      </div>
     </div>
-
     <script>
-        // رنگ‌های پیش‌فرض
-        const defaultTheme = {
-            "javafield": "#FD5660",
-            "tabimagecolorfilter": "#FDCBA1",
-            "fabbackgroundcolorcolor": "#11FFDE",
-            "htmlstr": "#06B8E9",
-            "pykeyword": "#FDE794",
-            "text_normal": "#FACE8E",
-            "tskeyword": "#FFA551",
-            "line_number_background": "#002635",
-            "auto_comp_panel_corner": "#FF848F",
-            "breaklevel8": "#F4FE63",
-            "breaklevel7": "#FE8744",
-            "phpsymbol": "#FCC293",
-            "breaklevel6": "#FDC2A3",
-            "breaklevel5": "#FFF23A",
-            "breaklevel4": "#F9CD47",
-            "breaklevel3": "#0BEAFE",
-            "breaklevel2": "#EFFA93",
-            "breaklevel1": "#0EFEF4",
-            "toolbarcolor": "#001E2A",
-            "pynumber": "#F4CC75",
-            "javatype": "#FF6447",
-            "auto_comp_panel_bg": "#001E2A",
-            "tssymbols": "#07E9E9",
-            "csskeyword": "#FF8C73",
-            "literal": "#FC8489",
-            "toolbartextcolor": "#05FFFA",
-            "phphtmlattr": "#FF7B6A",
-            "line_number": "#FFFFFF",
-            "block_line_current": "#FC6F63",
-            "tscolormatch3": "#EEFE7D",
-            "whole_background": "#002635",
-            "tscolormatch4": "#FBB074",
-            "attribute_name": "#FA994E",
-            "tscolormatch1": "#FF936F",
-            "tscolormatch2": "#02A5E0",
-            "tscolormatch7": "#FF9E44",
-            "javanumber": "#38FFE9",
-            "menubackground": "#001E2A",
-            "tscolormatch5": "#FE6651",
-            "javakeyword": "#FF4243",
-            "tscolormatch6": "#FFCE2D",
-            "phpcolormatch3": "#EDF88A",
-            "phpcolormatch2": "#FCAB4C",
-            "phpcolormatch5": "#FF6F70",
-            "phpcolormatch4": "#FF636E",
-            "phpcolormatch6": "#FD7054",
-            "line_divider": "#0AFFFFFF",
-            "fabimagecolor": "#F8625D",
-            "textcolorforgrand": "#FFD17E",
-            "phpcolormatch1": "#10FFF1",
-            "current_line": "#00222F",
-            "pystring": "#FAFD4B",
-            "jskeyword": "#FD706A",
-            "textcolorinier": "#00A5D8",
-            "javastring": "#00BED9",
-            "tsattr": "#E8F940",
-            "backgroundcolorlinear": "#002635",
-            "operator": "#FB6B4A",
-            "pysymbol": "#FF5447",
-            "selection_handle": "#FAF13B",
-            "phpkeyword": "#F9CC6C",
-            "tabback": "#001E2A",
-            "javafun": "#FF9E70",
-            "keyword": "#34F7FF",
-            "jsfun": "#F6A46F",
-            "pycolormatch3": "#35FFE2",
-            "pycolormatch4": "#FE957B",
-            "htmltag": "#FF7D86",
-            "phphtmlkeyword": "#10F7D4",
-            "htmlattrname": "#FF906E",
-            "pycolormatch1": "#00C0E8",
-            "pycolormatch2": "#FC9F9F",
-            "javaparament": "#F8C356",
-            "identifier_name": "#FFE06E",
-            "ninja": "#31F8DB",
-            "fabcolorstroker": "#FFA672",
-            "htmlblocknormal": "#22CCFF",
-            "tabtextcolor": "#F3D066",
-            "block_line": "#FFA691",
-            "htmlblockhash": "#06F4AB",
-            "selection_insert": "#FF9F97",
-            "textcolorigor": "#F8B580",
-            "jsattr": "#FD9590",
-            "imagecolor": "#FF9FA5",
-            "phpattr": "#ECF56A",
-            "jsstring": "#FAD383",
-            "html_tag": "#FEA59D",
-            "javaoprator": "#FA6F67",
-            "htmlattr": "#F95E6D",
-            "htmlsymbol": "#FEA96E",
-            "print": "#FFA89A",
-            "textcolorhder": "#FFCC9E",
-            "syombolbartextcolor": "#FBA73D",
-            "displaytextcolortab": "#FCD487",
-            "comment": "#00A8D4",
-            "attribute_value": "#FEDD8A",
-            "jsoprator": "#F3F689",
-            "non_printable_char": "#F9906A"
-        };
-
-        // عناصر DOM
-        const primaryColorInput = document.getElementById('primaryColor');
-        const secondaryColorInput = document.getElementById('secondaryColor');
-        const accentColorInput = document.getElementById('accentColor');
-        const primaryPreview = document.getElementById('primaryPreview');
-        const secondaryPreview = document.getElementById('secondaryPreview');
-        const accentPreview = document.getElementById('accentPreview');
-        const primaryValue = document.getElementById('primaryValue');
-        const secondaryValue = document.getElementById('secondaryValue');
-        const accentValue = document.getElementById('accentValue');
-        const generateBtn = document.getElementById('generateBtn');
-        const copyBtn = document.getElementById('copyBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const saveAdvancedBtn = document.getElementById('saveAdvancedBtn');
-        const output = document.getElementById('output');
-        const themeProperties = document.getElementById('themeProperties');
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        // حالت تم فعلی
-        let currentTheme = {...defaultTheme};
-
-        // رویدادهای تغییر رنگ
-        primaryColorInput.addEventListener('input', (e) => {
-            primaryPreview.style.backgroundColor = e.target.value;
-            primaryValue.textContent = e.target.value;
-        });
-
-        secondaryColorInput.addEventListener('input', (e) => {
-            secondaryPreview.style.backgroundColor = e.target.value;
-            secondaryValue.textContent = e.target.value;
-        });
-
-        accentColorInput.addEventListener('input', (e) => {
-            accentPreview.style.backgroundColor = e.target.value;
-            accentValue.textContent = e.target.value;
-        });
-
-        // کلیک روی پیش‌نمایش رنگ
-        primaryPreview.addEventListener('click', () => primaryColorInput.click());
-        secondaryPreview.addEventListener('click', () => secondaryColorInput.click());
-        accentPreview.addEventListener('click', () => accentColorInput.click());
-
-        // تب‌ها
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const tabId = tab.getAttribute('data-tab');
-                
-                // حذف کلاس active از همه تب‌ها و محتواها
-                tabs.forEach(t => t.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                
-                // اضافه کردن کلاس active به تب و محتوای انتخاب شده
-                tab.classList.add('active');
-                document.getElementById(`${tabId}-tab`).classList.add('active');
-                
-                // اگر تب پیشرفته انتخاب شد، لیست خصوصیات را آپدیت کن
-                if (tabId === 'advanced') {
-                    updatePropertiesList();
-                }
-            });
-        });
-
-        // تولید لیست خصوصیات برای تب پیشرفته
-        function updatePropertiesList() {
-            themeProperties.innerHTML = '';
-            
-            for (const key in currentTheme) {
-                const propertyItem = document.createElement('div');
-                propertyItem.className = 'property-item';
-                
-                const colorBox = document.createElement('div');
-                colorBox.className = 'property-color';
-                colorBox.style.backgroundColor = currentTheme[key];
-                colorBox.dataset.key = key;
-                
-                colorBox.addEventListener('click', function() {
-                    const colorKey = this.dataset.key;
-                    const currentColor = currentTheme[colorKey];
-                    
-                    // ایجاد یک input رنگ موقت
-                    const tempInput = document.createElement('input');
-                    tempInput.type = 'color';
-                    tempInput.value = currentColor;
-                    
-                    tempInput.addEventListener('input', function(e) {
-                        colorBox.style.backgroundColor = e.target.value;
-                    });
-                    
-                    tempInput.addEventListener('change', function(e) {
-                        currentTheme[colorKey] = e.target.value;
-                        applyThemeToPreview(currentTheme);
-                    });
-                    
-                    tempInput.click();
-                });
-                
-                const nameSpan = document.createElement('span');
-                nameSpan.className = 'property-name';
-                nameSpan.textContent = key;
-                
-                const valueSpan = document.createElement('span');
-                valueSpan.className = 'property-value';
-                valueSpan.textContent = currentTheme[key];
-                
-                propertyItem.appendChild(colorBox);
-                propertyItem.appendChild(nameSpan);
-                propertyItem.appendChild(valueSpan);
-                
-                themeProperties.appendChild(propertyItem);
-            }
-        }
-
-        // تنظیم تم پیش‌فرض
-        function setDefaultTheme() {
-            primaryColorInput.value = defaultTheme.whole_background;
-            secondaryColorInput.value = defaultTheme.toolbarcolor;
-            accentColorInput.value = defaultTheme.text_normal;
-            
-            primaryPreview.style.backgroundColor = primaryColorInput.value;
-            secondaryPreview.style.backgroundColor = secondaryColorInput.value;
-            accentPreview.style.backgroundColor = accentColorInput.value;
-            
-            primaryValue.textContent = primaryColorInput.value;
-            secondaryValue.textContent = secondaryColorInput.value;
-            accentValue.textContent = accentColorInput.value;
-            
-            currentTheme = {...defaultTheme};
-            generateTheme();
-        }
-
-        // تولید تم بر اساس رنگ‌های انتخاب شده
-        function generateTheme() {
-            const primaryColor = primaryColorInput.value;
-            const secondaryColor = secondaryColorInput.value;
-            const baseTextColor = accentColorInput.value;
-            
-            // ایجاد تم جدید با حفظ ساختار
-            const newTheme = {...defaultTheme};
-            
-            // 1. تنظیم رنگ‌های اصلی
-            newTheme.whole_background = primaryColor;
-            newTheme.line_number_background = primaryColor;
-            newTheme.backgroundcolorlinear = primaryColor;
-            newTheme.current_line = lightenColor(primaryColor, 20);
-            
-            // 2. تنظیم رنگ‌های نوار ابزار
-            newTheme.toolbarcolor = secondaryColor;
-            newTheme.auto_comp_panel_bg = secondaryColor;
-            newTheme.menubackground = secondaryColor;
-            newTheme.tabback = secondaryColor;
-            newTheme.toolbartextcolor = lightenColor(secondaryColor, 80);
-            
-            // 3. تنظیم رنگ متن پایه
-            newTheme.text_normal = baseTextColor;
-            
-            // 4. تنظیم رنگ‌های breaklevel با تنوع
-            newTheme.breaklevel1 = adjustHue(baseTextColor, 30);
-            newTheme.breaklevel2 = adjustHue(baseTextColor, 60);
-            newTheme.breaklevel3 = adjustHue(baseTextColor, 90);
-            newTheme.breaklevel4 = adjustHue(baseTextColor, 120);
-            newTheme.breaklevel5 = adjustHue(baseTextColor, 150);
-            newTheme.breaklevel6 = adjustHue(baseTextColor, 180);
-            newTheme.breaklevel7 = adjustHue(baseTextColor, 210);
-            newTheme.breaklevel8 = adjustHue(baseTextColor, 240);
-            
-            // 5. رنگ line_divider را کاملاً بدون تغییر نگه دارید
-            newTheme.line_divider = defaultTheme.line_divider;
-            
-            // 6. رنگ استرینگ‌ها را بدون تغییر نگه دارید
-            newTheme.javastring = defaultTheme.javastring;
-            newTheme.jsstring = defaultTheme.jsstring;
-            newTheme.pystring = defaultTheme.pystring;
-            newTheme.htmlstr = defaultTheme.htmlstr;
-            
-            currentTheme = {...newTheme};
-            
-            // اعمال تم جدید
-            applyThemeToPreview(currentTheme);
-            
-            // نمایش خروجی JSON با حفظ تمام رنگ‌ها
-            output.value = JSON.stringify(currentTheme, null, 2);
-        }
-
-        // تغییر Hue رنگ
-        function adjustHue(hex, degrees) {
-            const hsl = hexToHSL(hex);
-            hsl.h = (hsl.h + degrees) % 360;
-            if (hsl.h < 0) hsl.h += 360;
-            return hslToHex(hsl);
-        }
-
-        // روشن کردن رنگ
-        function lightenColor(hex, percent) {
-            const hsl = hexToHSL(hex);
-            hsl.l = Math.min(100, hsl.l + percent);
-            return hslToHex(hsl);
-        }
-
-        // تبدیل HEX به HSL
-        function hexToHSL(hex) {
-            let r = parseInt(hex.substr(1, 2), 16) / 255;
-            let g = parseInt(hex.substr(3, 2), 16) / 255;
-            let b = parseInt(hex.substr(5, 2), 16) / 255;
-            
-            let max = Math.max(r, g, b), min = Math.min(r, g, b);
-            let h, s, l = (max + min) / 2;
-            
-            if (max === min) {
-                h = s = 0;
-            } else {
-                let d = max - min;
-                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-                
-                switch (max) {
-                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-                    case g: h = (b - r) / d + 2; break;
-                    case b: h = (r - g) / d + 4; break;
-                }
-                
-                h /= 6;
-            }
-            
-            return {
-                h: Math.round(h * 360),
-                s: Math.round(s * 100),
-                l: Math.round(l * 100)
-            };
-        }
-
-        // تبدیل HSL به HEX
-        function hslToHex(hsl) {
-            let h = hsl.h / 360;
-            let s = hsl.s / 100;
-            let l = hsl.l / 100;
-            
-            let r, g, b;
-            
-            if (s === 0) {
-                r = g = b = l;
-            } else {
-                const hue2rgb = (p, q, t) => {
-                    if (t < 0) t += 1;
-                    if (t > 1) t -= 1;
-                    if (t < 1/6) return p + (q - p) * 6 * t;
-                    if (t < 1/2) return q;
-                    if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-                    return p;
-                };
-                
-                const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-                const p = 2 * l - q;
-                
-                r = hue2rgb(p, q, h + 1/3);
-                g = hue2rgb(p, q, h);
-                b = hue2rgb(p, q, h - 1/3);
-            }
-            
-            const toHex = x => {
-                const hex = Math.round(x * 255).toString(16);
-                return hex.length === 1 ? '0' + hex : hex;
-            };
-            
-            return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-        }
-
-        // اعمال تم به پیش‌نمایش
-        function applyThemeToPreview(theme) {
-            for (const key in theme) {
-                document.documentElement.style.setProperty(`--${key}`, theme[key]);
-            }
-        }
-
-        // رویدادها
-        generateBtn.addEventListener('click', generateTheme);
-
-        copyBtn.addEventListener('click', () => {
-            output.select();
-            document.execCommand('copy');
-            
-            // انیمیشن دکمه کپی
-            copyBtn.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                کپی شد!
-            `;
-            
-            setTimeout(() => {
-                copyBtn.innerHTML = `
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                    کپی خروجی
-                `;
-            }, 2000);
-        });
-
-        resetBtn.addEventListener('click', setDefaultTheme);
-
-        saveAdvancedBtn.addEventListener('click', () => {
-            applyThemeToPreview(currentTheme);
-            output.value = JSON.stringify(currentTheme, null, 2);
-            
-            // نمایش پیام موفقیت
-            saveAdvancedBtn.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                تغییرات ذخیره شد!
-            `;
-            
-            setTimeout(() => {
-                saveAdvancedBtn.innerHTML = `
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                        <polyline points="7 3 7 8 15 8"></polyline>
-                    </svg>
-                    ذخیره تغییرات
-                `;
-            }, 2000);
-        });
-
-        // مقداردهی اولیه
-        setDefaultTheme();
+      // رنگ‌های پیش‌فرض
+      const defaultTheme = {
+      	"javafield": "#FD5660",
+      	"tabimagecolorfilter": "#FDCBA1",
+      	"fabbackgroundcolorcolor": "#11FFDE",
+      	"htmlstr": "#06B8E9",
+      	"pykeyword": "#FDE794",
+      	"text_normal": "#FACE8E",
+      	"tskeyword": "#FFA551",
+      	"line_number_background": "#002635",
+      	"auto_comp_panel_corner": "#FF848F",
+      	"breaklevel8": "#F4FE63",
+      	"breaklevel7": "#FE8744",
+      	"phpsymbol": "#FCC293",
+      	"breaklevel6": "#FDC2A3",
+      	"breaklevel5": "#FFF23A",
+      	"breaklevel4": "#F9CD47",
+      	"breaklevel3": "#0BEAFE",
+      	"breaklevel2": "#EFFA93",
+      	"breaklevel1": "#0EFEF4",
+      	"toolbarcolor": "#001E2A",
+      	"pynumber": "#F4CC75",
+      	"javatype": "#FF6447",
+      	"auto_comp_panel_bg": "#001E2A",
+      	"tssymbols": "#07E9E9",
+      	"csskeyword": "#FF8C73",
+      	"literal": "#FC8489",
+      	"toolbartextcolor": "#05FFFA",
+      	"phphtmlattr": "#FF7B6A",
+      	"line_number": "#FFFFFF",
+      	"block_line_current": "#FC6F63",
+      	"tscolormatch3": "#EEFE7D",
+      	"whole_background": "#002635",
+      	"tscolormatch4": "#FBB074",
+      	"attribute_name": "#FA994E",
+      	"tscolormatch1": "#FF936F",
+      	"tscolormatch2": "#02A5E0",
+      	"tscolormatch7": "#FF9E44",
+      	"javanumber": "#38FFE9",
+      	"menubackground": "#001E2A",
+      	"tscolormatch5": "#FE6651",
+      	"javakeyword": "#FF4243",
+      	"tscolormatch6": "#FFCE2D",
+      	"phpcolormatch3": "#EDF88A",
+      	"phpcolormatch2": "#FCAB4C",
+      	"phpcolormatch5": "#FF6F70",
+      	"phpcolormatch4": "#FF636E",
+      	"phpcolormatch6": "#FD7054",
+      	"line_divider": "#0AFFFFFF",
+      	"fabimagecolor": "#F8625D",
+      	"textcolorforgrand": "#FFD17E",
+      	"phpcolormatch1": "#10FFF1",
+      	"current_line": "#00222F",
+      	"pystring": "#FAFD4B",
+      	"jskeyword": "#FD706A",
+      	"textcolorinier": "#00A5D8",
+      	"javastring": "#00BED9",
+      	"tsattr": "#E8F940",
+      	"backgroundcolorlinear": "#002635",
+      	"operator": "#FB6B4A",
+      	"pysymbol": "#FF5447",
+      	"selection_handle": "#FAF13B",
+      	"phpkeyword": "#F9CC6C",
+      	"tabback": "#001E2A",
+      	"javafun": "#FF9E70",
+      	"keyword": "#34F7FF",
+      	"jsfun": "#F6A46F",
+      	"pycolormatch3": "#35FFE2",
+      	"pycolormatch4": "#FE957B",
+      	"htmltag": "#FF7D86",
+      	"phphtmlkeyword": "#10F7D4",
+      	"htmlattrname": "#FF906E",
+      	"pycolormatch1": "#00C0E8",
+      	"pycolormatch2": "#FC9F9F",
+      	"javaparament": "#F8C356",
+      	"identifier_name": "#FFE06E",
+      	"ninja": "#31F8DB",
+      	"fabcolorstroker": "#FFA672",
+      	"htmlblocknormal": "#22CCFF",
+      	"tabtextcolor": "#F3D066",
+      	"block_line": "#FFA691",
+      	"htmlblockhash": "#06F4AB",
+      	"selection_insert": "#FF9F97",
+      	"textcolorigor": "#F8B580",
+      	"jsattr": "#FD9590",
+      	"imagecolor": "#FF9FA5",
+      	"phpattr": "#ECF56A",
+      	"jsstring": "#FAD383",
+      	"html_tag": "#FEA59D",
+      	"javaoprator": "#FA6F67",
+      	"htmlattr": "#F95E6D",
+      	"htmlsymbol": "#FEA96E",
+      	"print": "#FFA89A",
+      	"textcolorhder": "#FFCC9E",
+      	"syombolbartextcolor": "#FBA73D",
+      	"displaytextcolortab": "#FCD487",
+      	"comment": "#00A8D4",
+      	"attribute_value": "#FEDD8A",
+      	"jsoprator": "#F3F689",
+      	"non_printable_char": "#F9906A"
+      };
+      
+      // عناصر DOM
+      const primaryColorInput = document.getElementById('primaryColor');
+      const secondaryColorInput = document.getElementById('secondaryColor');
+      const accentColorInput = document.getElementById('accentColor');
+      const primaryPreview = document.getElementById('primaryPreview');
+      const secondaryPreview = document.getElementById('secondaryPreview');
+      const accentPreview = document.getElementById('accentPreview');
+      const primaryValue = document.getElementById('primaryValue');
+      const secondaryValue = document.getElementById('secondaryValue');
+      const accentValue = document.getElementById('accentValue');
+      const generateBtn = document.getElementById('generateBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const saveAdvancedBtn = document.getElementById('saveAdvancedBtn');
+      const output = document.getElementById('output');
+      const themeProperties = document.getElementById('themeProperties');
+      const tabs = document.querySelectorAll('.tab');
+      const tabContents = document.querySelectorAll('.tab-content');
+      const imageUpload = document.getElementById('imageUpload');
+      const imagePreview = document.getElementById('imagePreview');
+      const extractedColors = document.getElementById('extractedColors');
+      
+      // حالت تم فعلی
+      let currentTheme = {...defaultTheme};
+      
+      // رویدادهای تغییر رنگ
+      primaryColorInput.addEventListener('input', (e) => {
+      	primaryPreview.style.backgroundColor = e.target.value;
+      	primaryValue.textContent = e.target.value;
+      });
+      
+      secondaryColorInput.addEventListener('input', (e) => {
+      	secondaryPreview.style.backgroundColor = e.target.value;
+      	secondaryValue.textContent = e.target.value;
+      });
+      
+      accentColorInput.addEventListener('input', (e) => {
+      	accentPreview.style.backgroundColor = e.target.value;
+      	accentValue.textContent = e.target.value;
+      });
+      
+      // کلیک روی پیش‌نمایش رنگ
+      primaryPreview.addEventListener('click', () => primaryColorInput.click());
+      secondaryPreview.addEventListener('click', () => secondaryColorInput.click());
+      accentPreview.addEventListener('click', () => accentColorInput.click());
+      
+      // تب‌ها
+      tabs.forEach(tab => {
+      	tab.addEventListener('click', () => {
+      		const tabId = tab.getAttribute('data-tab');
+      		
+      		// حذف کلاس active از همه تب‌ها و محتواها
+      		tabs.forEach(t => t.classList.remove('active'));
+      		tabContents.forEach(c => c.classList.remove('active'));
+      		
+      		// اضافه کردن کلاس active به تب و محتوای انتخاب شده
+      		tab.classList.add('active');
+      		document.getElementById(`${tabId}-tab`).classList.add('active');
+      		
+      		// اگر تب پیشرفته انتخاب شد، لیست خصوصیات را آپدیت کن
+      		if (tabId === 'advanced') {
+      			updatePropertiesList();
+      		}
+      	});
+      });
+      
+      // رویداد آپلود تصویر - نسخه اصلاح شده و تست شده
+      imageUpload.addEventListener('change', function(e) {
+      	const file = e.target.files[0];
+      	if (!file) return;
+      	
+      	// بررسی نوع فایل
+      	if (!file.type.match('image.*')) {
+      		alert('لطفاً یک فایل تصویری انتخاب کنید (JPEG, PNG, etc.)');
+      		return;
+      	}
+      	
+      	const reader = new FileReader();
+      	
+      	reader.onload = function(event) {
+      		const img = new Image();
+      		
+      		img.onload = function() {
+      			// نمایش پیش‌نمایش تصویر
+      			imagePreview.innerHTML = '';
+      			const previewImg = document.createElement('img');
+      			previewImg.src = event.target.result;
+      			previewImg.style.maxWidth = '100%';
+      			previewImg.style.maxHeight = '300px';
+      			imagePreview.appendChild(previewImg);
+      			imagePreview.style.display = 'block';
+      			
+      			// استخراج رنگ‌ها از تصویر
+      			try {
+      				extractColorsFromImage(img);
+      			} catch (error) {
+      				console.error('خطا در استخراج رنگ:', error);
+      				alert('خطا در پردازش تصویر. لطفاً تصویر دیگری انتخاب کنید.');
+      			}
+      		};
+      		
+      		img.onerror = function() {
+      			alert('خطا در بارگذاری تصویر. فایل ممکن است آسیب دیده باشد.');
+      		};
+      		
+      		img.src = event.target.result;
+      	};
+      	
+      	reader.onerror = function() {
+      		alert('خطا در خواندن فایل. لطفاً مجدداً تلاش کنید.');
+      	};
+      	
+      	reader.readAsDataURL(file);
+      });
+      
+      // تابع استخراج رنگ‌ها از تصویر - نسخه بهبود یافته
+      function extractColorsFromImage(img) {
+      	// ایجاد کانوا برای پردازش تصویر
+      	const canvas = document.createElement('canvas');
+      	const ctx = canvas.getContext('2d');
+      	
+      	// تنظیم اندازه کانوا (برای عملکرد بهتر)
+      	const MAX_SIZE = 150;
+      	let width = img.width;
+      	let height = img.height;
+      	
+      	if (width > height) {
+      		if (width > MAX_SIZE) {
+      			height *= MAX_SIZE / width;
+      			width = MAX_SIZE;
+      		}
+      	} else {
+      		if (height > MAX_SIZE) {
+      			width *= MAX_SIZE / height;
+      			height = MAX_SIZE;
+      		}
+      	}
+      	
+      	canvas.width = width;
+      	canvas.height = height;
+      	
+      	// رسم تصویر روی کانوا
+      	ctx.drawImage(img, 0, 0, width, height);
+      	
+      	// دریافت داده‌های پیکسلی
+      	const imageData = ctx.getImageData(0, 0, width, height).data;
+      	
+      	// تحلیل رنگ‌ها
+      	const colorMap = {};
+      	for (let i = 0; i < imageData.length; i += 4) {
+      		const r = imageData[i];
+      		const g = imageData[i + 1];
+      		const b = imageData[i + 2];
+      		const a = imageData[i + 3];
+      		
+      		// نادیده گرفتن پیکسل‌های شفاف یا نیمه شفاف
+      		if (a < 200) continue;
+      		
+      		// گروه‌بندی رنگ‌های مشابه
+      		const roundedR = Math.round(r / 10) * 10;
+      		const roundedG = Math.round(g / 10) * 10;
+      		const roundedB = Math.round(b / 10) * 10;
+      		const hex = rgbToHex(roundedR, roundedG, roundedB);
+      		
+      		colorMap[hex] = (colorMap[hex] || 0) + 1;
+      	}
+      	
+      	// تبدیل به آرایه و مرتب‌سازی
+      	const sortedColors = Object.entries(colorMap)
+      	.sort((a, b) => b[1] - a[1])
+      	.slice(0, 8); // گرفتن 8 رنگ غالب
+      	
+      	// نمایش رنگ‌های استخراج شده
+      	extractedColors.innerHTML = '';
+      	sortedColors.forEach(([hex]) => {
+      		const swatch = document.createElement('div');
+      		swatch.className = 'color-swatch';
+      		swatch.style.backgroundColor = hex;
+      		swatch.title = hex;
+      		
+      		swatch.addEventListener('click', function() {
+      			// حذف انتخاب قبلی
+      			document.querySelectorAll('.color-swatch.selected').forEach(el => {
+      				el.classList.remove('selected');
+      			});
+      			
+      			// انتخاب رنگ جدید
+      			this.classList.add('selected');
+      			
+      			// تنظیم رنگ اصلی بر اساس رنگ انتخاب شده
+      			primaryColorInput.value = hex;
+      			primaryPreview.style.backgroundColor = hex;
+      			primaryValue.textContent = hex;
+      			
+      			// تولید تم جدید
+      			generateTheme();
+      		});
+      		
+      		extractedColors.appendChild(swatch);
+      	});
+      }
+      
+      // تابع تبدیل RGB به HEX
+      function rgbToHex(r, g, b) {
+      	return '#' + [r, g, b].map(x => {
+      		const hex = x.toString(16).padStart(2, '0');
+      		return hex.length === 1 ? '0' + hex : hex;
+      	}).join('').toUpperCase();
+      }
+      
+      // بقیه توابع (همانند قبل بدون تغییر)
+      function updatePropertiesList() {
+      	themeProperties.innerHTML = '';
+      	
+      	for (const key in currentTheme) {
+      		const propertyItem = document.createElement('div');
+      		propertyItem.className = 'property-item';
+      		
+      		const colorBox = document.createElement('div');
+      		colorBox.className = 'property-color';
+      		colorBox.style.backgroundColor = currentTheme[key];
+      		colorBox.dataset.key = key;
+      		
+      		colorBox.addEventListener('click', function() {
+      			const colorKey = this.dataset.key;
+      			const currentColor = currentTheme[colorKey];
+      			
+      			const tempInput = document.createElement('input');
+      			tempInput.type = 'color';
+      			tempInput.value = currentColor;
+      			
+      			tempInput.addEventListener('input', function(e) {
+      				colorBox.style.backgroundColor = e.target.value;
+      			});
+      			
+      			tempInput.addEventListener('change', function(e) {
+      				currentTheme[colorKey] = e.target.value;
+      				applyThemeToPreview(currentTheme);
+      			});
+      			
+      			tempInput.click();
+      		});
+      		
+      		const nameSpan = document.createElement('span');
+      		nameSpan.className = 'property-name';
+      		nameSpan.textContent = key;
+      		
+      		const valueSpan = document.createElement('span');
+      		valueSpan.className = 'property-value';
+      		valueSpan.textContent = currentTheme[key];
+      		
+      		propertyItem.appendChild(colorBox);
+      		propertyItem.appendChild(nameSpan);
+      		propertyItem.appendChild(valueSpan);
+      		
+      		themeProperties.appendChild(propertyItem);
+      	}
+      }
+      
+      function setDefaultTheme() {
+      	primaryColorInput.value = defaultTheme.whole_background;
+      	secondaryColorInput.value = defaultTheme.toolbarcolor;
+      	accentColorInput.value = defaultTheme.text_normal;
+      	
+      	primaryPreview.style.backgroundColor = primaryColorInput.value;
+      	secondaryPreview.style.backgroundColor = secondaryColorInput.value;
+      	accentPreview.style.backgroundColor = accentColorInput.value;
+      	
+      	primaryValue.textContent = primaryColorInput.value;
+      	secondaryValue.textContent = secondaryColorInput.value;
+      	accentValue.textContent = accentColorInput.value;
+      	
+      	currentTheme = {...defaultTheme};
+      	generateTheme();
+      }
+      
+      function generateTheme() {
+      	const primaryColor = primaryColorInput.value;
+      	const secondaryColor = secondaryColorInput.value;
+      	const baseTextColor = accentColorInput.value;
+      	
+      	const newTheme = {...defaultTheme};
+      	
+      	newTheme.whole_background = primaryColor;
+      	newTheme.line_number_background = primaryColor;
+      	newTheme.backgroundcolorlinear = primaryColor;
+      	newTheme.current_line = lightenColor(primaryColor, 20);
+      	
+      	newTheme.toolbarcolor = secondaryColor;
+      	newTheme.auto_comp_panel_bg = secondaryColor;
+      	newTheme.menubackground = secondaryColor;
+      	newTheme.tabback = secondaryColor;
+      	newTheme.toolbartextcolor = lightenColor(secondaryColor, 80);
+      	
+      	newTheme.text_normal = baseTextColor;
+      	
+      	newTheme.breaklevel1 = adjustHue(baseTextColor, 30);
+      	newTheme.breaklevel2 = adjustHue(baseTextColor, 60);
+      	newTheme.breaklevel3 = adjustHue(baseTextColor, 90);
+      	newTheme.breaklevel4 = adjustHue(baseTextColor, 120);
+      	newTheme.breaklevel5 = adjustHue(baseTextColor, 150);
+      	newTheme.breaklevel6 = adjustHue(baseTextColor, 180);
+      	newTheme.breaklevel7 = adjustHue(baseTextColor, 210);
+      	newTheme.breaklevel8 = adjustHue(baseTextColor, 240);
+      	
+      	currentTheme = {...newTheme};
+      	applyThemeToPreview(currentTheme);
+      	output.value = JSON.stringify(currentTheme, null, 2);
+      }
+      
+      function adjustHue(hex, degrees) {
+      	const hsl = hexToHSL(hex);
+      	hsl.h = (hsl.h + degrees) % 360;
+      	if (hsl.h < 0) hsl.h += 360;
+      	return hslToHex(hsl);
+      }
+      
+      function lightenColor(hex, percent) {
+      	const hsl = hexToHSL(hex);
+      	hsl.l = Math.min(100, hsl.l + percent);
+      	return hslToHex(hsl);
+      }
+      
+      function hexToHSL(hex) {
+      	let r = parseInt(hex.substr(1, 2), 16) / 255;
+      	let g = parseInt(hex.substr(3, 2), 16) / 255;
+      	let b = parseInt(hex.substr(5, 2), 16) / 255;
+      	
+      	let max = Math.max(r, g, b), min = Math.min(r, g, b);
+      	let h, s, l = (max + min) / 2;
+      	
+      	if (max === min) {
+      		h = s = 0;
+      	} else {
+      		let d = max - min;
+      		s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      		
+      		switch (max) {
+      			case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      			case g: h = (b - r) / d + 2; break;
+      			case b: h = (r - g) / d + 4; break;
+      		}
+      		
+      		h /= 6;
+      	}
+      	
+      	return {
+      		h: Math.round(h * 360),
+      		s: Math.round(s * 100),
+      		l: Math.round(l * 100)
+      	};
+      }
+      
+      function hslToHex(hsl) {
+      	let h = hsl.h / 360;
+      	let s = hsl.s / 100;
+      	let l = hsl.l / 100;
+      	
+      	let r, g, b;
+      	
+      	if (s === 0) {
+      		r = g = b = l;
+      	} else {
+      		const hue2rgb = (p, q, t) => {
+      			if (t < 0) t += 1;
+      			if (t > 1) t -= 1;
+      			if (t < 1/6) return p + (q - p) * 6 * t;
+      			if (t < 1/2) return q;
+      			if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      			return p;
+      		};
+      		
+      		const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      		const p = 2 * l - q;
+      		
+      		r = hue2rgb(p, q, h + 1/3);
+      		g = hue2rgb(p, q, h);
+      		b = hue2rgb(p, q, h - 1/3);
+      	}
+      	
+      	const toHex = x => {
+      		const hex = Math.round(x * 255).toString(16);
+      		return hex.length === 1 ? '0' + hex : hex;
+      	};
+      	
+      	return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+      }
+      
+      function applyThemeToPreview(theme) {
+      	for (const key in theme) {
+      		document.documentElement.style.setProperty(`--${key}`, theme[key]);
+      	}
+      }
+      
+      // رویدادهای دکمه‌ها
+      generateBtn.addEventListener('click', generateTheme);
+      
+      copyBtn.addEventListener('click', () => {
+      	output.select();
+      	document.execCommand('copy');
+      	
+      	copyBtn.innerHTML = `
+      	<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      	<polyline points="20 6 9 17 4 12"></polyline>
+      	</svg>
+      	کپی شد!
+      	`;
+      	
+      	setTimeout(() => {
+      		copyBtn.innerHTML = `
+      		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      		<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      		<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      		</svg>
+      		کپی خروجی
+      		`;
+      	}, 2000);
+      });
+      
+      resetBtn.addEventListener('click', setDefaultTheme);
+      
+      saveAdvancedBtn.addEventListener('click', () => {
+      	applyThemeToPreview(currentTheme);
+      	output.value = JSON.stringify(currentTheme, null, 2);
+      	
+      	saveAdvancedBtn.innerHTML = `
+      	<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      	<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      	<polyline points="22 4 12 14.01 9 11.01"></polyline>
+      	</svg>
+      	تغییرات ذخیره شد!
+      	`;
+      	
+      	setTimeout(() => {
+      		saveAdvancedBtn.innerHTML = `
+      		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      		<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+      		<polyline points="17 21 17 13 7 13 7 21"></polyline>
+      		<polyline points="7 3 7 8 15 8"></polyline>
+      		</svg>
+      		ذخیره تغییرات
+      		`;
+      	}, 2000);
+      });
+      
+      // مقداردهی اولیه
+      setDefaultTheme();
+      
     </script>
-</body>
+  </body>
 </html>
