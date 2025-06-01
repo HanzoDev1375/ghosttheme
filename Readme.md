@@ -172,3 +172,153 @@ how to using java code??
                         }
                       });
 ```
+## java is hard? using `python code`
+
+``` python
+import requests
+import json
+import os
+from threading import Thread
+from typing import List, Callable, Optional
+#tnks for deepseek to fix bug
+class GitHubDownloader:
+    GITHUB_API_BASE = "https://api.github.com"
+    GITHUB_RAW_BASE = "https://raw.githubusercontent.com"
+
+    def __init__(self, auth_token: str = None):
+        """
+        Initialize the GitHub downloader with an optional auth token.
+        
+        Args:
+            auth_token: GitHub personal access token (optional but recommended)
+        """
+        self.auth_token = auth_token
+        self.session = requests.Session()
+        if auth_token:
+            self.session.headers.update({
+                "Authorization": f"token {auth_token}",
+                "Accept": "application/vnd.github.v3+json"
+            })
+
+    def crawl_and_save(self, repo_url: str, save_path: str, callback: Callable = None) -> None:
+        """
+        Crawl a GitHub repository and save found images and themes to a JSON file.
+        
+        Args:
+            repo_url: URL of the GitHub repository (e.g., "https://github.com/user/repo")
+            save_path: Path to save the JSON file
+            callback: Optional callback function with signature (success: bool, result: dict)
+        """
+        def run():
+            try:
+                api_url = self._convert_to_api_url(repo_url)
+                image_urls = []
+                theme_urls = []
+                
+                self._crawl_directory(api_url, image_urls, theme_urls)
+                
+                # Prepare the JSON data
+                result = []
+                max_length = max(len(image_urls), len(theme_urls))
+                
+                for i in range(max_length):
+                    item = {
+                        "image": image_urls[i] if i < len(image_urls) else None,
+                        "theme": theme_urls[i] if i < len(theme_urls) else None
+                    }
+                    result.append(item)
+                
+                # Save to file
+                self._save_json_to_file(result, save_path)
+                
+                if callback:
+                    callback(True, {
+                        "saved_path": save_path,
+                        "image_count": len(image_urls),
+                        "theme_count": len(theme_urls)
+                    })
+            except Exception as e:
+                if callback:
+                    callback(False, {"error": str(e)})
+
+        Thread(target=run).start()
+
+    def _crawl_directory(self, api_url: str, image_urls: List[str], theme_urls: List[str]) -> None:
+        """
+        Recursively crawl a GitHub directory to find image and theme files.
+        """
+        response = self.session.get(api_url)
+        response.raise_for_status()
+        
+        repo_path = self._extract_repo_path(api_url)
+        branch = self._extract_branch_from_api_url(api_url)
+        
+        for item in response.json():
+            item_type = item.get("type")
+            path = item.get("path")
+            
+            if item_type == "file":
+                lower_path = path.lower()
+                raw_url = f"{self.GITHUB_RAW_BASE}/{repo_path}/{branch}/{path}"
+                
+                if self._is_image_file(lower_path):
+                    image_urls.append(raw_url)
+                elif lower_path.endswith(".ghost"):
+                    theme_urls.append(raw_url)
+                    
+            elif item_type == "dir":
+                self._crawl_directory(item["url"], image_urls, theme_urls)
+
+    @staticmethod
+    def _is_image_file(filename: str) -> bool:
+        """Check if the file is an image based on its extension."""
+        return filename.endswith(".webp") or filename.endswith(".png") or filename.endswith(".gif")
+
+    @staticmethod
+    def _extract_branch_from_api_url(api_url: str) -> str:
+        """Extract branch name from API URL."""
+        return api_url.split("?ref=")[1] if "?ref=" in api_url else "main"
+
+    def _convert_to_api_url(self, repo_url: str) -> str:
+        """Convert a GitHub repository URL to API URL."""
+        return f"{self.GITHUB_API_BASE}/repos/{self._extract_repo_path(repo_url)}/contents"
+
+    @staticmethod
+    def _extract_repo_path(url: str) -> str:
+        """Extract repository path from URL."""
+        if url.startswith(GitHubDownloader.GITHUB_API_BASE):
+            path = url.replace(f"{GitHubDownloader.GITHUB_API_BASE}/repos/", "")
+            return path.split("/contents")[0].split("?")[0]
+        return url.replace("https://github.com/", "").replace(".git", "")
+
+    @staticmethod
+    def _save_json_to_file(data: dict, path: str) -> None:
+        """Save JSON data to a file."""
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+# Example usage
+if __name__ == "__main__":
+    # Create a callback function to handle results
+    def callback(success, result):
+        if success:
+            print(f"Success! Saved to {result['saved_path']}")
+            print(f"Found {result['image_count']} images and {result['theme_count']} themes")
+        else:
+            print(f"Error: {result['error']}")
+
+    # Initialize the downloader (token is optional but recommended)
+    downloader = GitHubDownloader(auth_token="yourtoken")
+    
+    # Start crawling (this will run in the background)
+    downloader.crawl_and_save(
+        repo_url="https://github.com/HanzoDev1375/ghosttheme",
+        save_path="/sdcard/output/result.json",
+        callback=callback
+    )
+    
+    print("Crawling started in the background...")
+
+```
