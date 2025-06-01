@@ -1,7 +1,7 @@
 {
   "javafield": "#FD971F",
   "tabimagecolorfilter": "#75715E",
-  "fabbackgroundcolorcolor": "#2D2A2E",
+  "fabbackgroundcolorcolor": "#ff3d383d",
   "htmlstr": "#E6DB74",
   "pykeyword": "#F92672",
   "text_normal": "#F8F8F2",
@@ -76,7 +76,7 @@
   "ninja": "#AE81FF",
   "fabcolorstroker": "#4DFFFFFF",
   "htmlblocknormal": "#F92672",
-  "tabtextcolor": "#75715E",
+  "tabtextcolor": "#ff9a947f",
   "block_line": "#66D9EF",
   "htmlblockhash": "#F92672",
   "selection_insert": "#A6E22E",

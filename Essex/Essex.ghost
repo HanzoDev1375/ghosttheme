@@ -1,7 +1,7 @@
 {
   "javafield": "#78DBEF",
   "tabimagecolorfilter": "#56B6C2",
-  "fabbackgroundcolorcolor": "#05315b",
+  "fabbackgroundcolorcolor": "#ff0a3e71",
   "htmlstr": "#f3b085",
   "pykeyword": "#EE4C4C",
   "text_normal": "#ABB2BF",
@@ -60,7 +60,7 @@
   "pysymbol": "#56B6C2",
   "selection_handle": "#56B6C2",
   "phpkeyword": "#EE4C4C",
-  "tabback": "#f3b085",
+  "tabback": "#ff637db4",
   "javafun": "#B5AAEE",
   "keyword": "#EE4C4C",
   "jsfun": "#B5AAEE",

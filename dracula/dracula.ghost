@@ -76,7 +76,7 @@
   "ninja": "#BD93F9",
   "fabcolorstroker": "#4DFFFFFF",
   "htmlblocknormal": "#FF5555",
-  "tabtextcolor": "#6272A4",
+  "tabtextcolor": "#ff8a95da",
   "block_line": "#8BE9FD",
   "htmlblockhash": "#FF5555",
   "selection_insert": "#50FA7B",
