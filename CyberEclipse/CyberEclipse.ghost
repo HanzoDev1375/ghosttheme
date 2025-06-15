@@ -39,6 +39,7 @@
   "menubackground": "#161622",
   "tscolormatch5": "#BD93F9",
   "javakeyword": "#7DF9FF",
+    "javakeywordoprator":"#5BE8D9", 
   "tscolormatch6": "#FF2D75",
   "phpcolormatch3": "#FF2D75",
   "phpcolormatch2": "#00FF9D",

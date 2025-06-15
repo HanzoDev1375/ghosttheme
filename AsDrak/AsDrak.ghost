@@ -20,6 +20,7 @@
   "toolbarcolor": "#21252B",
   "pynumber": "#D19A66",
   "javatype": "#E5C07B",
+  
   "auto_comp_panel_bg": "#21252B",
   "tssymbols": "#C678DD",
   "csskeyword": "#61AFEF",
@@ -39,6 +40,7 @@
   "menubackground": "#21252B",
   "tscolormatch5": "#ABB2BF",
   "javakeyword": "#61AFEF",
+    "javakeywordoprator":"#2ACAE2", 
   "tscolormatch6": "#56B6C2",
   "phpcolormatch3": "#E06C75",
   "phpcolormatch2": "#56B6C2",
