@@ -38,6 +38,8 @@
     "tscolormatch7": "#ff8bffb0",
     "javanumber": "#A5D6A7",
     "menubackground": "#00391a",
+    "menuPosBackground": "#00391a",
+    "menuPosTextColor": "#A0FFEB",
     "tscolormatch5": "#ff5df4ff",
     "javakeyword": "#80FFD7",
     "tscolormatch6": "#ff8bffdd",
