@@ -59,6 +59,7 @@
     "javastring": "#E0E0E0",
     "tsattr": "#33FF57",
     "backgroundcolorlinear": "#071221",
+    "navstatusbar": "#071221",
     "operator": "#FFB74D",
     "pysymbol": "#569CD6",
     "selection_handle": "#66BB6A",

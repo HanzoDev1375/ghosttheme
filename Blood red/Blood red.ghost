@@ -38,7 +38,7 @@
     "javanumber": "#38FFE9",
     "menubackground": "#190000",
     "menuPosBackground": "#190000",
-    "menuPosTextColor": "#FFCBCB" 
+    "menuPosTextColor": "#FFCBCB", 
     "tscolormatch5": "#FE6651",
     "javakeyword": "#FF42A4",
     "javakeywordoprator": "#EF60D7",
@@ -59,6 +59,7 @@
     "javastring": "#C276E5",
     "tsattr": "#E8F940",
     "backgroundcolorlinear": "#190000",
+    "navstatusbar":"#190000", 
     "operator": "#FB6B4A",
     "pysymbol": "#FF5447",
     "selection_handle": "#FAF13B",
