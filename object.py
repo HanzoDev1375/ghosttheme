@@ -1,4 +1,4 @@
-#pylint:disable=E0001
+
 import os
 import json
 
