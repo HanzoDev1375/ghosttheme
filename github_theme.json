@@ -1,145 +1,151 @@
 [
     {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/AsDrak/AsDrak.png",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.webp",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/deepocean/deepocean.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/deepocean/deepocean.webp",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MidnightGarden/MidnightGarden.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MidnightGarden/MidnightGarden.png",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dracula/dracula.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dracula/dracula.webp",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/materialthemedraker/materialthemedraker.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/materialthemedraker/materialthemedraker.webp",
+        "background": null,
+        "hasbackground": false
+    },
+    {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/AsDrak/AsDrak.ghost",
-        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Girl theme/girlbackground.jpeg",
-        "hasbackground": true
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/AsDrak/AsDrak.png",
+        "background": null,
+        "hasbackground": false
     },
     {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Blood red/Blood red.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Blood red/Blood red.ghost",
-        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheetback.jpeg",
-        "hasbackground": true
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Mai_dark/Mai_dark.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Mai_dark/Mai_dark.png",
+        "background": null,
+        "hasbackground": false
     },
     {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/CyberEclipse/CyberEclipse.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/CyberEclipse/CyberEclipse.ghost",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/orginal/orginal.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/orginal/orginaltheme.webp",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Red cloud galaxy/Red cloud galaxy.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Red cloud galaxy/Red cloud galaxy.png",
         "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Red cloud galaxy/Redcloudgalaxybackground.jpeg",
         "hasbackground": true
     },
     {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Essex/Essex.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Essex/Essex.ghost",
-        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/man theme/manbackground.jpeg",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/god of war/godofwar.ghost",
+        "image": null,
+        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/god of war/godofwar.jpeg",
         "hasbackground": true
     },
     {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Girl theme/Girl theme.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Girl theme/Girl theme.ghost",
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/moon red/moon red.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/moon red/moon red.png",
         "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/moon red/moonredbackground.jpeg",
         "hasbackground": true
     },
     {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheet.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheet.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Mai_dark/Mai_dark.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Mai_dark/Mai_dark.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Maika/Maika.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Maika/Maika.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker/MatrixHacker.png",
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker/MatrixHacker.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker/MatrixHacker.png",
         "background": null,
         "hasbackground": false
     },
     {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MidnightGarden/MidnightGarden.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MidnightGarden/MidnightGarden.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Noctis/Noctis.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Noctis/Noctis.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/ObsidianFalme/ObsidianFalme.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/ObsidianFalme/ObsidianFalme.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Red cloud galaxy/Red cloud galaxy.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Red cloud galaxy/Red cloud galaxy.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/deepocean/deepocean.webp",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/deepocean/deepocean.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dracula/dracula.webp",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dracula/dracula.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/greenhell/greenhell.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/greenhell/GreenHell.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/man theme/mans.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/man theme/Man theme.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/materialthemedraker/materialthemedraker.webp",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/materialthemedraker/materialthemedraker.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/monokia pro/monokiapro.webp",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/monokia pro/monokiapro.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/moon red/moon red.png",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/moon red/moon red.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.webp",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/onedrakpro/onedrakpro.webp",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/onedrakpro/onedrakpro.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/orginal/orginaltheme.webp",
-        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/orginal/orginal.ghost",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sorazior drak/soraziordrak.webp",
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sorazior drak/soraziordrak.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sorazior drak/soraziordrak.webp",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/man theme/Man theme.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/man theme/mans.png",
+        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/man theme/manbackground.jpeg",
+        "hasbackground": true
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/CyberEclipse/CyberEclipse.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/CyberEclipse/CyberEclipse.png",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Noctis/Noctis.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Noctis/Noctis.png",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/onedrakpro/onedrakpro.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/onedrakpro/onedrakpro.webp",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Essex/Essex.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Essex/Essex.png",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/monokia pro/monokiapro.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/monokia pro/monokiapro.webp",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Girl theme/Girl theme.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Girl theme/Girl theme.png",
+        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Girl theme/girlbackground.jpeg",
+        "hasbackground": true
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Maika/Maika.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Maika/Maika.png",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheet.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheet.png",
+        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheetback.jpeg",
+        "hasbackground": true
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/ObsidianFalme/ObsidianFalme.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/ObsidianFalme/ObsidianFalme.png",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Blood red/Blood red.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Blood red/Blood red.png",
+        "background": null,
+        "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/greenhell/GreenHell.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/greenhell/greenhell.png",
         "background": null,
         "hasbackground": false
     }
