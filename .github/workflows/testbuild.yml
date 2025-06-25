@@ -1,90 +1,87 @@
-name: Update Theme Catalog
+name: Theme Catalog Updater
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # روزانه اجرا شود
-  workflow_dispatch: # امکان اجرای دستی
+  workflow_dispatch: # اجرای دستی
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - '**/*.ghost'
-      - '**/*.png'
-      - '**/*.webp'
-      - '**/*.jpeg'
-      - '**/*.jpg'
+      - 'themes/**' # مسیر فایل‌های تم شما
 
 jobs:
-  update-themes:
+  update-catalog:
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: write # اجازه نوشتن در ریپو
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      
+    - uses: actions/checkout@v3
+    
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
         
-    - name: Install dependencies
-      run: pip install pyyaml
-        
-    - name: Run theme scanner script
+    - name: Run Python script
       run: |
-        cat << 'EOF' > theme_scanner.py
+        # ایجاد فایل پایتون
+        cat << 'EOF' > generate_catalog.py
         import os
         import json
         from pathlib import Path
 
+        BASE_URL = "https://raw.githubusercontent.com/{}/main".format(
+            os.environ['GITHUB_REPOSITORY']
+        )
+
+        def find_related_files(file_path):
+            """پیدا کردن فایل‌های مرتبط با تم"""
+            base = file_path.with_suffix('')
+            results = {'theme': file_path}
+            
+            # جستجوی تصویر
+            for ext in ['.png', '.webp', '.jpg', '.jpeg']:
+                if base.with_suffix(ext).exists():
+                    results['image'] = base.with_suffix(ext)
+                    break
+            
+            # جستجوی پس‌زمینه
+            for bg in ['background.jpeg', 'back.jpeg', 'bg.jpeg']:
+                bg_path = base.with_name(bg)
+                if bg_path.exists():
+                    results['background'] = bg_path
+                    break
+            
+            return results
+
         def main():
-            repo = os.environ.get('GITHUB_REPOSITORY')
-            base_url = f'https://raw.githubusercontent.com/{repo}/main/'
-            themes = []
-
-            for root, _, files in os.walk('.'):
-                for file in files:
-                    if file.endswith('.ghost'):
-                        theme_path = Path(root) / file
-                        rel_path = str(theme_path.relative_to('.'))
-                        theme = {
-                            'theme': base_url + rel_path,
-                            'image': None,
-                            'background': None,
-                            'hasbackground': False
-                        }
-
-                        # Find image
-                        for ext in ['.png', '.webp', '.jpg', '.jpeg']:
-                            img_path = theme_path.with_suffix(ext)
-                            if img_path.exists():
-                                theme['image'] = base_url + str(img_path.relative_to('.'))
-                                break
-
-                        # Find background
-                        bg_path = theme_path.with_suffix('.jpeg')
-                        if not bg_path.exists():
-                            bg_path = theme_path.with_suffix('.jpg')
-                        if bg_path.exists():
-                            theme['background'] = base_url + str(bg_path.relative_to('.'))
-                            theme['hasbackground'] = True
-
-                        themes.append(theme)
-
+            catalog = []
+            themes_dir = Path('themes') # مسیر فایل‌های تم
+            
+            for theme_file in themes_dir.rglob('*.ghost'):
+                files = find_related_files(theme_file)
+                
+                entry = {
+                    'theme': f"{BASE_URL}/{files['theme']}",
+                    'image': f"{BASE_URL}/{files.get('image', '')}" if files.get('image') else None,
+                    'background': f"{BASE_URL}/{files.get('background', '')}" if files.get('background') else None,
+                    'hasbackground': 'background' in files
+                }
+                catalog.append(entry)
+            
             with open('themes.json', 'w') as f:
-                json.dump(themes, f, indent=2)
-            print(f"Generated catalog with {len(themes)} themes")
+                json.dump(catalog, f, indent=2)
 
         if __name__ == '__main__':
             main()
         EOF
         
-        python theme_scanner.py
+        # اجرای اسکریپت
+        python generate_catalog.py
         
-    - name: Commit and push changes
+    - name: Commit changes
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
         git add themes.json
-        git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update theme catalog"
+        git commit -m "Auto-update theme catalog [skip ci]" || echo "No changes to commit"
         git push
