@@ -1,4 +1,4 @@
-name: Python CI and Theme Catalog
+name: Run theme
 
 on:
   push:
