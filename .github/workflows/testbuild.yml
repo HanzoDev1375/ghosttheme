@@ -2,8 +2,8 @@ name: Update Theme Catalog
 
 on:
   schedule:
-    - cron: '0 0 * * *' # روزانه اجرا شود
-  workflow_dispatch: # امکان اجرای دستی
+    - cron: '0 0 * * *' # Run daily at midnight UTC
+  workflow_dispatch: # Manual trigger
   push:
     branches:
       - main
@@ -27,71 +27,14 @@ jobs:
       with:
         python-version: '3.10'
         
-    - name: Generate theme catalog
+    - name: Run theme scanner
       run: |
-        pip install pyyaml
-        python -c "
-import os
-import json
-import yaml
-from pathlib import Path
-
-themes = []
-backgrounds = []
-
-# اسکن تمام فایل‌ها
-for root, dirs, files in os.walk('.'):
-    for file in files:
-        path = Path(root) / file
-        rel_path = str(path.relative_to('.'))
-        
-        if file.endswith('.ghost'):
-            # پردازش فایل‌های تم
-            theme = {
-                'theme': f'https://raw.githubusercontent.com/{os.environ['GITHUB_REPOSITORY']}/main/{rel_path}',
-                'image': None,
-                'background': None,
-                'hasbackground': False
-            }
-            
-            # جستجوی تصویر مرتبط
-            for ext in ['.png', '.webp', '.jpg', '.jpeg']:
-                img_path = path.with_suffix(ext)
-                if img_path.exists():
-                    theme['image'] = f'https://raw.githubusercontent.com/{os.environ['GITHUB_REPOSITORY']}/main/{img_path.relative_to('.')}'
-                    break
-            
-            themes.append(theme)
-            
-        elif file.lower().endswith(('.jpeg', '.jpg')) and ('background' in file.lower() or 'back' in file.lower()):
-            # پردازش پس‌زمینه‌ها
-            bg = {
-                'path': rel_path,
-                'url': f'https://raw.githubusercontent.com/{os.environ['GITHUB_REPOSITORY']}/main/{rel_path}',
-                'theme_name': os.path.basename(root)
-            }
-            backgrounds.append(bg)
-
-# تطابق پس‌زمینه‌ها با تم‌ها
-for bg in backgrounds:
-    for theme in themes:
-        theme_dir = os.path.dirname(theme['theme'].split('/main/')[1])
-        if bg['theme_name'] in theme_dir:
-            theme['background'] = bg['url']
-            theme['hasbackground'] = True
-            break
-
-# ذخیره به عنوان JSON
-with open('themes.json', 'w') as f:
-    json.dump(themes, f, indent=2)
-
-print('Theme catalog generated successfully!')
-        "
+        python hsi.py
         
     - name: Commit and push changes
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
         git add themes.json
-        git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update theme catalog"
+        git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update theme catalog [skip ci]"
         git push
