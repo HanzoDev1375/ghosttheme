@@ -1,29 +1,60 @@
-name: Theme Catalog Updater
+name: Python CI and Theme Catalog
 
 on:
-  workflow_dispatch: # اجرای دستی
   push:
-    branches: [main]
+    branches: [ "main" ]
     paths:
-      - 'themes/**' # مسیر فایل‌های تم شما
+      - 'themes/**'
+      - '**/*.py'
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
 
 jobs:
-  update-catalog:
+  test:
+    name: Run Python Tests
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # اجازه نوشتن در ریپو
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest pyyaml
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        
+    - name: Lint with flake8
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        
+    - name: Run tests
+      run: |
+        pytest
+
+  update-catalog:
+    name: Update Theme Catalog
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v3
       with:
         python-version: '3.10'
         
-    - name: Run Python script
+    - name: Generate theme catalog
       run: |
-        # ایجاد فایل پایتون
         cat << 'EOF' > generate_catalog.py
         import os
         import json
@@ -33,55 +64,58 @@ jobs:
             os.environ['GITHUB_REPOSITORY']
         )
 
-        def find_related_files(file_path):
-            """پیدا کردن فایل‌های مرتبط با تم"""
-            base = file_path.with_suffix('')
-            results = {'theme': file_path}
+        def find_assets(theme_path):
+            base = theme_path.with_suffix('')
+            assets = {
+                'theme': theme_path,
+                'image': None,
+                'background': None
+            }
             
-            # جستجوی تصویر
+            # Find preview image
             for ext in ['.png', '.webp', '.jpg', '.jpeg']:
                 if base.with_suffix(ext).exists():
-                    results['image'] = base.with_suffix(ext)
+                    assets['image'] = base.with_suffix(ext)
                     break
             
-            # جستجوی پس‌زمینه
-            for bg in ['background.jpeg', 'back.jpeg', 'bg.jpeg']:
+            # Find background
+            for bg in ['background.jpeg', 'back.jpeg', 'bg.jpeg', 'background.jpg']:
                 bg_path = base.with_name(bg)
                 if bg_path.exists():
-                    results['background'] = bg_path
+                    assets['background'] = bg_path
                     break
             
-            return results
+            return assets
 
         def main():
             catalog = []
-            themes_dir = Path('themes') # مسیر فایل‌های تم
+            themes_dir = Path('themes')
             
             for theme_file in themes_dir.rglob('*.ghost'):
-                files = find_related_files(theme_file)
+                assets = find_assets(theme_file)
                 
                 entry = {
-                    'theme': f"{BASE_URL}/{files['theme']}",
-                    'image': f"{BASE_URL}/{files.get('image', '')}" if files.get('image') else None,
-                    'background': f"{BASE_URL}/{files.get('background', '')}" if files.get('background') else None,
-                    'hasbackground': 'background' in files
+                    'theme': f"{BASE_URL}/{assets['theme']}",
+                    'image': f"{BASE_URL}/{assets['image']}" if assets['image'] else None,
+                    'background': f"{BASE_URL}/{assets['background']}" if assets['background'] else None,
+                    'hasbackground': assets['background'] is not None
                 }
                 catalog.append(entry)
             
             with open('themes.json', 'w') as f:
                 json.dump(catalog, f, indent=2)
+            print(f"Generated catalog with {len(catalog)} themes")
 
         if __name__ == '__main__':
             main()
         EOF
         
-        # اجرای اسکریپت
         python generate_catalog.py
         
-    - name: Commit changes
+    - name: Commit and push changes
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
         git add themes.json
-        git commit -m "Auto-update theme catalog [skip ci]" || echo "No changes to commit"
+        git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update theme catalog [skip ci]"
         git push
