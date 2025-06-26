@@ -126,6 +126,12 @@
         "hasbackground": false
     },
     {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Phosphor green/Phosphor green.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Phosphor green/Phosphor green.webp",
+        "background": null,
+        "hasbackground": false
+    },
+    {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheet.ghost",
         "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheet.png",
         "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheetback.jpeg",
