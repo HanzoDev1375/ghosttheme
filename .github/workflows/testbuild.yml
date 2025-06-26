@@ -2,12 +2,12 @@ name: Python CI and Theme Catalog
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     paths:
       - 'themes/**'
       - '**/*.py'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 permissions:
   contents: write

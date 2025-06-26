@@ -1,14 +1,12 @@
-
 import os
 import json
-
 
 def edittheme(directory, key, value):
     if not os.path.exists(directory):
         print("dir not found" + directory)
         return
 
-    for root, files in os.walk(directory):  # استفاده از os.walk برای جستجوی بازگشتی
+    for root, dirs, files in os.walk(directory):  # Fixed to capture all three values
         for filename in files:
             if filename.endswith('.ghost'):
                 file_path = os.path.join(root, filename)
@@ -21,7 +19,6 @@ def edittheme(directory, key, value):
                 
                 if isinstance(data, dict):
                     data[key] = value
-
                     with open(file_path, 'w', encoding='utf-8') as f:
                         json.dump(data, f, ensure_ascii=False, indent=4)
                         print(f"فایل '{filename}' به‌روزرسانی شد.")
@@ -33,7 +30,7 @@ def update_json_files(directory, key, key_to_read):
         print("Dir not found " + directory)
         return
 
-    for root, files in os.walk(directory):
+    for root, dirs, files in os.walk(directory):  # Fixed to capture all three values
         for filename in files:
             if filename.endswith('.ghost'):
                 file_path = os.path.join(root, filename)
@@ -46,8 +43,8 @@ def update_json_files(directory, key, key_to_read):
                 
                 if isinstance(data, dict):
                     if key_to_read in data:
-                        value = data[key_to_read]  # خواندن مقدار از کلید مشخص
-                        data[key] = value  # اضافه کردن یا بروزرسانی کلید جدید با مقادیر خوانده شده
+                        value = data[key_to_read]
+                        data[key] = value
                         
                         with open(file_path, 'w', encoding='utf-8') as f:
                             json.dump(data, f, ensure_ascii=False, indent=4)
