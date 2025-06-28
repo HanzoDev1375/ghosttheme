@@ -55,7 +55,7 @@
     },
     {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/god of war/godofwar.ghost",
-        "image": null,
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/god of war/godofwar.png",
         "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/god of war/godofwar.jpeg",
         "hasbackground": true
     },
@@ -115,7 +115,7 @@
     },
     {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker pro/MatrixHackerpro.ghost",
-        "image": null,
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker pro/matrixhackerpro.png",
         "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker pro/MatrixHackerpro.jpeg",
         "hasbackground": true
     },
@@ -139,7 +139,7 @@
     },
     {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dna Violet/dna Violet.ghost",
-        "image": null,
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dna Violet/dna.png",
         "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dna Violet/dna Violet.jpeg",
         "hasbackground": true
     },
@@ -157,7 +157,7 @@
     },
     {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sparta theme/sparta theme.ghost",
-        "image": null,
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sparta theme/sparta themes.png",
         "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sparta theme/sparta theme.jpeg",
         "hasbackground": true
     },
