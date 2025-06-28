@@ -114,6 +114,12 @@
         "hasbackground": false
     },
     {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker pro/MatrixHackerpro.ghost",
+        "image": null,
+        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker pro/MatrixHackerpro.jpeg",
+        "hasbackground": true
+    },
+    {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Girl theme/Girl theme.ghost",
         "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Girl theme/Girl theme.png",
         "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Girl theme/girlbackground.jpeg",
@@ -132,6 +138,12 @@
         "hasbackground": false
     },
     {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dna Violet/dna Violet.ghost",
+        "image": null,
+        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/dna Violet/dna Violet.jpeg",
+        "hasbackground": true
+    },
+    {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheet.ghost",
         "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheet.png",
         "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Gold black sheet/Goldblacksheetback.jpeg",
@@ -142,6 +154,12 @@
         "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/ObsidianFalme/ObsidianFalme.png",
         "background": null,
         "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sparta theme/sparta theme.ghost",
+        "image": null,
+        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sparta theme/sparta theme.jpeg",
+        "hasbackground": true
     },
     {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Blood red/Blood red.ghost",
