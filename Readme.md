@@ -18,120 +18,224 @@
 
 ```java
 
+package ir.ninjacoder.ghostide.prograssdialog;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONException;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GitHubDownloder {
 
-    private static final String GITHUB_API_BASE = "https://api.github.com";
-    private static final String GITHUB_RAW_BASE = "https://raw.githubusercontent.com";
+  private static final String GITHUB_API_BASE = "https://api.github.com";
+  private static final String GITHUB_RAW_BASE = "https://raw.githubusercontent.com";
 
-    private final String authToken;
-    private final OkHttpClient client;
+  private final String authToken;
+  private final OkHttpClient client;
 
-    public GitHubDownloder(String authToken) {
-        this.authToken = authToken;
-        this.client = new OkHttpClient();
-    }
+  public GitHubDownloder(String authToken) {
+    this.authToken = authToken;
+    this.client = new OkHttpClient();
+  }
 
-    public void crawlAndSave(String repoUrl, String savePath, CrawlCallback callback) {
-        new Thread(() -> {
-            try {
+  public void crawlAndSave(String repoUrl, String savePath, CrawlCallback callback) {
+    new Thread(
+            () -> {
+              try {
                 String apiUrl = convertToApiUrl(repoUrl);
-                List<String> imageUrls = new ArrayList<>();
-                List<String> themeUrls = new ArrayList<>();
-                crawlDirectory(apiUrl, imageUrls, themeUrls);
-                
-                JSONArray jsonArray = new JSONArray();
-                int maxLength = Math.max(imageUrls.size(), themeUrls.size());
-                
-                for (int i = 0; i < maxLength; i++) {
-                    JSONObject obj = new JSONObject();
-                    obj.put("image", i < imageUrls.size() ? imageUrls.get(i) : JSONObject.NULL);
-                    obj.put("theme", i < themeUrls.size() ? themeUrls.get(i) : JSONObject.NULL);
-                    jsonArray.put(obj);
-                }
-                
-                saveJsonToFile(jsonArray.toString(), savePath);
-                callback.onSuccess(savePath, imageUrls.size(), themeUrls.size());
-            } catch (Exception e) {
+                Map<String, Theme> themes = new HashMap<>();
+                List<Background> backgrounds = new ArrayList<>();
+
+                // Step 1: Scan repository
+                scanRepository(apiUrl, themes, backgrounds);
+
+                // Step 2: Match backgrounds with themes
+                matchBackgrounds(themes, backgrounds);
+
+                // Step 3: Generate JSON
+                JSONArray jsonArray = generateJson(themes.values());
+
+                // Step 4: Save to file
+                saveToFile(jsonArray.toString(), savePath);
+
+                callback.onSuccess(savePath, themes.size());
+              } catch (Exception e) {
                 callback.onFailure(e.getMessage());
-            }
-        }).start();
+              }
+            })
+        .start();
+  }
+
+  private void scanRepository(
+      String apiUrl, Map<String, Theme> themes, List<Background> backgrounds) throws Exception {
+    Request request =
+        new Request.Builder().url(apiUrl).header("Authorization", "token " + authToken).build();
+
+    Response response = client.newCall(request).execute();
+    JSONArray items = new JSONArray(response.body().string());
+    String repoPath = extractRepoPath(apiUrl);
+    String branch = extractBranchFromApiUrl(apiUrl);
+
+    for (int i = 0; i < items.length(); i++) {
+      JSONObject item = items.getJSONObject(i);
+      String type = item.getString("type");
+      String path = item.getString("path");
+      String name = path.substring(path.lastIndexOf('/') + 1);
+      String rawUrl = GITHUB_RAW_BASE + "/" + repoPath + "/" + branch + "/" + path;
+
+      if (type.equals("file")) {
+        processFile(themes, backgrounds, path, name, rawUrl);
+      } else if (type.equals("dir")) {
+        scanRepository(item.getString("url"), themes, backgrounds);
+      }
     }
+  }
 
-    private void crawlDirectory(String apiUrl, List<String> imageUrls, List<String> themeUrls) throws Exception {
-        Request request = new Request.Builder()
-                .url(apiUrl)
-                .header("Authorization", "token " + authToken)
-                .build();
+  private void processFile(
+      Map<String, Theme> themes,
+      List<Background> backgrounds,
+      String path,
+      String name,
+      String rawUrl) {
 
-        Response response = client.newCall(request).execute();
-        String jsonData = response.body().string();
-        JSONArray files = new JSONArray(jsonData);
-        String repoPath = extractRepoPath(apiUrl);
-        String branch = extractBranchFromApiUrl(apiUrl);
+    String dirName = path.contains("/") ? path.substring(0, path.lastIndexOf('/')) : "";
+    String extension =
+        name.contains(".") ? name.substring(name.lastIndexOf('.') + 1).toLowerCase() : "";
 
-        for (int i = 0; i < files.length(); i++) {
-            JSONObject item = files.getJSONObject(i);
-            String type = item.getString("type");
-            String path = item.getString("path");
+    // پردازش فایل‌های تم (.ghost)
+    if (extension.equals("ghost")) {
+      Theme theme = themes.getOrDefault(dirName, new Theme());
+      theme.themeUrl = rawUrl;
+      theme.name = name.replace(".ghost", "");
+      themes.put(dirName, theme);
+    }
+    // پردازش فایل‌های JSON (ذخیره فقط مسیر)
+    else if (extension.equals("json")) {
+      Theme theme = themes.getOrDefault(dirName, new Theme());
+      theme.themeJson = rawUrl; // فقط URL فایل JSON را ذخیره می‌کنیم
+      themes.put(dirName, theme);
+    }
+    // پردازش تصاویر پیش‌نمایش
+    else if (isPreviewImage(name)) {
+      Theme theme = themes.getOrDefault(dirName, new Theme());
+      theme.imageUrl = rawUrl;
+      themes.put(dirName, theme);
+    }
+    // پردازش تصاویر پس‌زمینه
+    else if (isBackgroundImage(name)) {
+      backgrounds.add(new Background(dirName, rawUrl));
+    }
+  }
 
-            if (type.equals("file")) {
-                String lowerPath = path.toLowerCase();
-                String rawUrl = GITHUB_RAW_BASE + "/" + repoPath + "/" + branch + "/" + path;
-                
-                if (isImageFile(lowerPath)) {
-                    imageUrls.add(rawUrl);
-                } else if (lowerPath.endsWith(".ghost")) {
-                    themeUrls.add(rawUrl);
-                }
-            } else if (type.equals("dir")) {
-                crawlDirectory(item.getString("url"), imageUrls, themeUrls);
-            }
+  private void matchBackgrounds(Map<String, Theme> themes, List<Background> backgrounds) {
+    for (Background bg : backgrounds) {
+      // Try to match by directory name first
+      if (themes.containsKey(bg.directory)) {
+        themes.get(bg.directory).backgroundUrl = bg.url;
+        continue;
+      }
+
+      // Try to match by common patterns
+      for (Theme theme : themes.values()) {
+        if (bg.directory.contains(theme.name.toLowerCase())
+            || theme.name.toLowerCase().contains(bg.directory.toLowerCase())) {
+          theme.backgroundUrl = bg.url;
+          break;
         }
+      }
+    }
+  }
+
+  private JSONArray generateJson(Iterable<Theme> themes) {
+    JSONArray jsonArray = new JSONArray();
+
+    for (Theme theme : themes) {
+      try {
+        JSONObject obj = new JSONObject();
+        obj.put("theme", theme.themeUrl != null ? theme.themeUrl : JSONObject.NULL);
+        obj.put("image", theme.imageUrl != null ? theme.imageUrl : JSONObject.NULL);
+        obj.put("themeObject", theme.themeJson != null ? theme.themeJson : JSONObject.NULL);
+
+        boolean hasBackground = theme.backgroundUrl != null;
+        obj.put("background", hasBackground ? theme.backgroundUrl : JSONObject.NULL);
+        obj.put("hasbackground", hasBackground);
+
+        jsonArray.put(obj);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
     }
 
-    private boolean isImageFile(String filename) {
-        return filename.endsWith(".webp");
-    }
+    return jsonArray;
+  }
 
-    private String extractBranchFromApiUrl(String apiUrl) {
-        return apiUrl.contains("?ref=") ? apiUrl.split("\\?ref=")[1] : "main";
-    }
+  private boolean isPreviewImage(String filename) {
+    String lower = filename.toLowerCase();
+    return lower.endsWith(".png") || lower.endsWith(".webp");
+  }
 
-    private String convertToApiUrl(String repoUrl) {
-        return GITHUB_API_BASE + "/repos/" + extractRepoPath(repoUrl) + "/contents";
-    }
+  private boolean isBackgroundImage(String filename) {
+    String lower = filename.toLowerCase();
+    return lower.endsWith(".jpeg");
+  }
 
-    private String extractRepoPath(String url) {
-        if (url.startsWith(GITHUB_API_BASE)) {
-            String path = url.replace(GITHUB_API_BASE + "/repos/", "");
-            return path.split("/contents")[0].split("\\?")[0];
-        }
-        return url.replace("https://github.com/", "").replace(".git", "");
+  private void saveToFile(String json, String path) throws Exception {
+    File file = new File(path);
+    file.getParentFile().mkdirs();
+    try (FileWriter writer = new FileWriter(file)) {
+      writer.write(json);
     }
+  }
 
-    private void saveJsonToFile(String json, String path) throws Exception {
-        File file = new File(path);
-        file.getParentFile().mkdirs();
-        try (FileWriter writer = new FileWriter(file)) {
-            writer.write(json);
-        }
-    }
+  private String extractBranchFromApiUrl(String apiUrl) {
+    return apiUrl.contains("?ref=") ? apiUrl.split("\\?ref=")[1] : "main";
+  }
 
-    public interface CrawlCallback {
-        void onSuccess(String savedPath, int imageCount, int themeCount);
-        void onFailure(String error);
+  private String convertToApiUrl(String repoUrl) {
+    return GITHUB_API_BASE + "/repos/" + extractRepoPath(repoUrl) + "/contents";
+  }
+
+  private String extractRepoPath(String url) {
+    if (url.startsWith(GITHUB_API_BASE)) {
+      String path = url.replace(GITHUB_API_BASE + "/repos/", "");
+      return path.split("/contents")[0].split("\\?")[0];
     }
+    return url.replace("https://github.com/", "").replace(".git", "");
+  }
+
+  private static class Theme {
+    String name;
+    String themeUrl;
+    String imageUrl;
+    String backgroundUrl;
+    String themeJson;
+  }
+
+  private static class Background {
+    String directory;
+    String url;
+
+    Background(String directory, String url) {
+      this.directory = directory;
+      this.url = url;
+    }
+  }
+
+  public interface CrawlCallback {
+    void onSuccess(String savedPath, int themeCount);
+
+    void onFailure(String error);
+  }
 }
+
 ```
 
 
