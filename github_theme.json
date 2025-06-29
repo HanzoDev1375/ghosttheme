@@ -1,12 +1,5 @@
 [
     {
-        "theme": null,
-        "image": null,
-        "themeObject": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/github_theme.json",
-        "background": null,
-        "hasbackground": false
-    },
-    {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.ghost",
         "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.webp",
         "themeObject": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/theme.json",
@@ -66,13 +59,6 @@
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/orginal/orginal.ghost",
         "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/orginal/orginaltheme.webp",
         "themeObject": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/orginal/theme.json",
-        "background": null,
-        "hasbackground": false
-    },
-    {
-        "theme": null,
-        "image": null,
-        "themeObject": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/.github/theme.json",
         "background": null,
         "hasbackground": false
     },
