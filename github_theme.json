@@ -1,4 +1,5 @@
 [
+
     {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.ghost",
         "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.webp",
@@ -62,6 +63,7 @@
         "background": null,
         "hasbackground": false
     },
+
     {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Red cloud galaxy/Red cloud galaxy.ghost",
         "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Red cloud galaxy/Red cloud galaxy.png",
@@ -110,6 +112,13 @@
         "themeObject": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/CyberEclipse/theme.json",
         "background": null,
         "hasbackground": false
+    },
+    {
+        "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Donatello/Donatello.ghost",
+        "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Donatello/Donatello.png",
+        "themeObject": null,
+        "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Donatello/Donatello.jpeg",
+        "hasbackground": true
     },
     {
         "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/moon space blue/moon space.ghost",
