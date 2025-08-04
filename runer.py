@@ -10,7 +10,7 @@ REPO_NAME = "ghosttheme"
 API_URL = (
     f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/git/trees/main?recursive=1"
 )
-OUTPUT_FILE = "ghost_themes.json"
+OUTPUT_FILE = "github_theme.json"
 
 HEADERS = {
     "Authorization": f"token {GITHUB_TOKEN}" if GITHUB_TOKEN else "",
