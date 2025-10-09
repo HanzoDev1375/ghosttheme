@@ -55,7 +55,7 @@ def fetch_ghost_themes():
                     elif filename.endswith(
                         (".webp", ".png", ".jpeg", ".jpg", ".mp4")
                     ):  # add video Background
-                        if "preview" in filename.lower() or "pre" in filename.lower():
+                        if "preview" in filename.lower():
                             theme_data["image"] = (
                                 f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{path}"
                             )
