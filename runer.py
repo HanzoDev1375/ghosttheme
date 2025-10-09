@@ -1,7 +1,8 @@
-import requests
 import json
 import os
-from urllib.parse import unquote
+
+import requests
+
 
 print("Run....")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
@@ -51,8 +52,10 @@ def fetch_ghost_themes():
                         theme_data["theme"] = (
                             f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{path}"
                         )
-                    elif filename.endswith((".webp", ".png", ".jpeg", ".jpg")):
-                        if "preview" in filename.lower():
+                    elif filename.endswith(
+                        (".webp", ".png", ".jpeg", ".jpg", ".mp4")
+                    ):  # add video Background
+                        if "preview" in filename.lower() or "pre" in filename.lower():
                             theme_data["image"] = (
                                 f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{path}"
                             )
