@@ -18,6 +18,32 @@ HEADERS = {
 }
 
 
+def get_file_size(url):
+    """Get file size in bytes from a GitHub raw URL"""
+    try:
+        response = requests.head(url, headers=HEADERS)
+        if response.status_code == 200:
+            size = int(response.headers.get("content-length", 0))
+            return size
+        return 0
+    except Exception as e:
+        print(f"⚠️ Error getting file size for {url}: {e}")
+        return 0
+
+
+def format_file_size(size_bytes):
+    """Format file size in human readable format (KB, MB, etc.)"""
+    if size_bytes == 0:
+        return "0 B"
+
+    size_names = ["B", "KB", "MB", "GB"]
+    i = 0
+    while size_bytes >= 1024 and i < len(size_names) - 1:
+        size_bytes /= 1024.0
+        i += 1
+    return f"{size_bytes:.1f} {size_names[i]}"
+
+
 def fetch_ghost_themes():
     try:
         print("Fetching repository tree...")
@@ -33,11 +59,21 @@ def fetch_ghost_themes():
             theme_dir = os.path.dirname(ghost_file["path"])
             theme_name = os.path.basename(ghost_file["path"])
 
+            theme_url = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{ghost_file['path']}"
+
+            # Get theme file size
+            theme_size_bytes = get_file_size(theme_url)
+            theme_size_formatted = format_file_size(theme_size_bytes)
+
             theme_data = {
-                "theme": f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{ghost_file['path']}",
+                "theme": theme_url,
                 "image": "",
                 "background": None,
                 "hasbackground": False,
+                #     "theme_size": theme_size_bytes,  # سایز فایل تم (بایت)
+                "theme_size_formatted": theme_size_formatted,  # سایز فایل تم (فرمت خوانا)
+                #    "background_size": 0,  # سایز پس‌زمینه اصلی (بایت)
+                "background_size_formatted": "0 B",  # سایز پس‌زمینه اصلی (فرمت خوانا)
             }
 
             for item in tree:
@@ -48,19 +84,27 @@ def fetch_ghost_themes():
                 filename = os.path.basename(path).lower()
 
                 if filename.endswith((".webp", ".png", ".jpeg", ".jpg", ".mp4")):
+                    file_url = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{path}"
+
                     if "preview" in filename and not filename.endswith(".mp4"):
-                        theme_data["image"] = (
-                            f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{path}"
-                        )
+                        # این فایل پیش‌نمایش است
+                        theme_data["image"] = file_url
                     else:
-                        theme_data["background"] = (
-                            f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{path}"
-                        )
+                        # این فایل پس‌زمینه اصلی است
+                        theme_data["background"] = file_url
                         theme_data["hasbackground"] = True
+                        # Get background file size
+
+                        bg_size_bytes = get_file_size(file_url)
+                        # theme_data["background_size"] = bg_size_bytes
+                        theme_data["background_size_formatted"] = format_file_size(
+                            bg_size_bytes
+                        )
 
             print(f"✅ Found theme: {theme_name}")
+            print(f"   ↳ Theme size: {theme_data['theme_size_formatted']}")
             if theme_data["background"]:
-                print(f"   ↳ Background found: {theme_data['background']}")
+                print(f"   ↳ Background: {theme_data['background_size_formatted']}")
             if theme_data["image"]:
                 print(f"   ↳ Preview image: {theme_data['image']}")
 
