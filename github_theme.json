@@ -125,7 +125,7 @@
     "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker pro/MatrixHackerpro.jpeg",
     "hasbackground": true,
     "theme_size_formatted": "813.0 B",
-    "background_size_formatted": "0 B"
+    "background_size_formatted": "6.2 MB"
   },
   {
     "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker/MatrixHacker.ghost",
@@ -334,6 +334,14 @@
     "hasbackground": true,
     "theme_size_formatted": "1.0 KB",
     "background_size_formatted": "5.7 MB"
+  },
+  {
+    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nanaco/nanaco.ghost",
+    "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nanaco/previewnanaco.jpg",
+    "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nanaco/nanaco.jpg",
+    "hasbackground": true,
+    "theme_size_formatted": "999.0 B",
+    "background_size_formatted": "209.2 KB"
   },
   {
     "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.ghost",
