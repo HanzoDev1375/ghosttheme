@@ -48,6 +48,14 @@
     "background_size_formatted": "0 B"
   },
   {
+    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Cyrus the Great/CyrusGreat.ghost",
+    "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Cyrus the Great/previewCyrusGreat.png",
+    "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Cyrus the Great/CyrusGreat.jpeg",
+    "hasbackground": true,
+    "theme_size_formatted": "1.0 KB",
+    "background_size_formatted": "498.8 KB"
+  },
+  {
     "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Dark galaxy/Dark galaxy.ghost",
     "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Dark galaxy/previewDark galaxy.png",
     "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Dark galaxy/Dark galaxy.jpeg",
