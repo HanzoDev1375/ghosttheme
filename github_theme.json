@@ -16,6 +16,14 @@
     "background_size_formatted": "0 B"
   },
   {
+    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Beautiful girly look/Beautiful girly look.ghost",
+    "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Beautiful girly look/previewBeautiful girly look.png",
+    "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Beautiful girly look/Beautiful girly look.jpeg",
+    "hasbackground": true,
+    "theme_size_formatted": "994.0 B",
+    "background_size_formatted": "709.0 KB"
+  },
+  {
     "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Black skull/Black skull.ghost",
     "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Black skull/previewBlackskull.png",
     "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Black skull/Black skull.jpeg",
@@ -230,6 +238,22 @@
     "hasbackground": true,
     "theme_size_formatted": "941.0 B",
     "background_size_formatted": "9.2 MB"
+  },
+  {
+    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Ying and Yang/Ying and Yang.ghost",
+    "image": "",
+    "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Ying and Yang/Ying and Yang.jpg",
+    "hasbackground": true,
+    "theme_size_formatted": "1012.0 B",
+    "background_size_formatted": "2.1 MB"
+  },
+  {
+    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Ying and Yang/test.ghost",
+    "image": "",
+    "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Ying and Yang/Ying and Yang.jpg",
+    "hasbackground": true,
+    "theme_size_formatted": "950.0 B",
+    "background_size_formatted": "2.1 MB"
   },
   {
     "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/cat/cat.ghost",
