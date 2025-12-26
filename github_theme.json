@@ -408,6 +408,14 @@
     "background_size_formatted": "0 B"
   },
   {
+    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/red glass fragmented/red glass fragmented.ghost",
+    "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/red glass fragmented/previewredglassfragmented.png",
+    "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/red glass fragmented/red glass fragmented.jpeg",
+    "hasbackground": true,
+    "theme_size_formatted": "1.0 KB",
+    "background_size_formatted": "2.0 MB"
+  },
+  {
     "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sky/sky.ghost",
     "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sky/previewsky.png",
     "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/sky/sky.jpg",
