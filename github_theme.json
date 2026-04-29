@@ -148,7 +148,7 @@
     "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/MatrixHacker/previewMatrixHacker.png",
     "background": null,
     "hasbackground": false,
-    "theme_size_formatted": "746.0 B",
+    "theme_size_formatted": "755.0 B",
     "background_size_formatted": "0 B"
   },
   {
@@ -382,6 +382,14 @@
     "hasbackground": true,
     "theme_size_formatted": "999.0 B",
     "background_size_formatted": "209.2 KB"
+  },
+  {
+    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/neon gt/neon gt.ghost",
+    "image": "",
+    "background": null,
+    "hasbackground": false,
+    "theme_size_formatted": "1.0 KB",
+    "background_size_formatted": "0 B"
   },
   {
     "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/nord/nord.ghost",
