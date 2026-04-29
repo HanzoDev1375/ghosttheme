@@ -12,7 +12,7 @@
     "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/AsDrak/previewAsDrak.png",
     "background": null,
     "hasbackground": false,
-    "theme_size_formatted": "820.0 B",
+    "theme_size_formatted": "834.0 B",
     "background_size_formatted": "0 B"
   },
   {
@@ -46,6 +46,22 @@
     "hasbackground": false,
     "theme_size_formatted": "1.0 KB",
     "background_size_formatted": "0 B"
+  },
+  {
+    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Blue whale/Blue whale.ghost",
+    "image": "",
+    "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Blue whale/Blue whale.png",
+    "hasbackground": true,
+    "theme_size_formatted": "1020.0 B",
+    "background_size_formatted": "2.4 MB"
+  },
+  {
+    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Cat look/Cat look.ghost",
+    "image": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Cat look/previewCatlook.png",
+    "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Cat look/Cat look.jpg",
+    "hasbackground": true,
+    "theme_size_formatted": "1.0 KB",
+    "background_size_formatted": "5.5 MB"
   },
   {
     "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/CyberEclipse/CyberEclipse.ghost",
@@ -245,14 +261,6 @@
     "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Ying and Yang/Ying and Yang.jpg",
     "hasbackground": true,
     "theme_size_formatted": "1012.0 B",
-    "background_size_formatted": "2.1 MB"
-  },
-  {
-    "theme": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Ying and Yang/test.ghost",
-    "image": "",
-    "background": "https://raw.githubusercontent.com/HanzoDev1375/ghosttheme/main/Ying and Yang/Ying and Yang.jpg",
-    "hasbackground": true,
-    "theme_size_formatted": "950.0 B",
     "background_size_formatted": "2.1 MB"
   },
   {
